@@ -47,10 +47,10 @@ def close_order(place_50):
         heappush(next_place, (dst_now_res, res_x, res_y, idx, 1))
         heappush(next_place, (dst_now_cus, cus_x, cus_y, idx, 2))
 
-    orderd_50 = []
+    ordered_50 = []
     rest_all = next_place
     received = [0] * (N+1)
-    while len(orderd_50) != M*2:
+    while len(ordered_50) != M*2:
         next_place = []
         heapify(next_place)
         for _ in range(len(rest_all)):
@@ -74,16 +74,16 @@ def close_order(place_50):
                 received[idx] = 2
                 go = True
 
-        orderd_50.append((x, y, idx, num))
+        ordered_50.append((x, y, idx, num))
         rest_all = next_place + stay
         now_x, now_y = x, y
-    return orderd_50
+    return ordered_50
 
-def output(orderd_50):
+def output(ordered_50):
     ans1 = [50]
     ans2 = [102, 400, 400]
     ids = set()
-    for x, y, idx, num in orderd_50:
+    for x, y, idx, num in ordered_50:
         ids.add(idx)
         for xy in (x, y):
             ans2.append(xy)
@@ -98,7 +98,7 @@ def main():
     heapify(all_place)
     all_place = _input(all_place)
     place_50 = select_50(all_place)
-    orderd_50 = close_order(place_50)
-    output(orderd_50)
+    ordered_50 = close_order(place_50)
+    output(ordered_50)
 
 main()
