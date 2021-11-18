@@ -1,3 +1,7 @@
+'''
+print(654231)
+'''
+
 me = [i for i in range(1, 7)]
 st = max(me)
 ans = [st]
