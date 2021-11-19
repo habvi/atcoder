@@ -19,7 +19,6 @@ for l in range(n):
     while tot > k and r-1 >= 0:
         tot -= B[r-1]
         r -= 1
-    # print('---', l, r, tot, l+r, ans)
     if tot > k or r < 0:
         break
     ans = max(ans, l + r)
