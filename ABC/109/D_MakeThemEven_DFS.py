@@ -1,6 +1,7 @@
 import sys
 sys.setrecursionlimit(10**7)
 def dfs(y, x):
+    print(y, x)
     seen[y][x] = 1
     for dy, dx in zip([0, 1, 0, -1], [1, 0, -1, 0]):
         ny, nx = y + dy, x + dx
@@ -16,11 +17,7 @@ h, w = map(int, input().split())
 a = [list(map(int, input().split())) for _ in range(h)]
 seen = [[0] * w for _ in range(h)]
 ans = []
-for i in range(h):
-    for j in range(w):
-        if seen[i][j]:
-            continue
-        dfs(i, j)
+dfs(0, 0)
 
 print(len(ans))
 for a in ans:
