@@ -1,6 +1,5 @@
-'''
-N**2//2 = O(N**7) PyPy3
-'''
+# N**2//2 = O(N**7) PyPy3
+
 n = int(input())
 A = list(map(int, input().split()))
 

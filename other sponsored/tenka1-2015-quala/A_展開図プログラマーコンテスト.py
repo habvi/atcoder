@@ -1,6 +1,4 @@
-'''
-print(654231)
-'''
+# print(654231) or
 
 me = [i for i in range(1, 7)]
 st = max(me)

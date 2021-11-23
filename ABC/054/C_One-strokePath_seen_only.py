@@ -1,14 +1,13 @@
 import sys
 sys.setrecursionlimit(10**7)
-def dfs(v, p):
+def dfs(v, cnt):
     seen[v] = 1
-    if sum(seen) == n:
+    if cnt == n:
         ans[0] += 1
         return
     for nv in G[v]:
-        if nv == p: continue
         if seen[nv]: continue
-        dfs(nv, v)
+        dfs(nv, cnt + 1)
         seen[nv] = 0
     
 n, m = map(int, input().split())
@@ -21,5 +20,5 @@ for _ in range(m):
 
 seen = [0]*n
 ans = [0]
-dfs(0, -1)
+dfs(0, 1)
 print(ans[0])
