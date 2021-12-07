@@ -1,5 +1,3 @@
-# 二分探索でx以下でいけるならokをやる。毎回ダイクストラして最短ルートでやる。
-
 h, w, T = map(int, input().split())
 s = [input() for _ in range(h)]
 for i in range(h):
