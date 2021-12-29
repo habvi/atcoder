@@ -6,4 +6,4 @@ for _ in range(n):
         ev += 1
     else:
         od += 1
-print(ev, od, ev * od)
+print(ev * od)
