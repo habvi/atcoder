@@ -27,7 +27,6 @@ idx = defaultdict(int)
 for i, p in enumerate(P):
     idx[p - 1] = i
 
-ans = 0
 vs = defaultdict(list)
 idxs = defaultdict(list)
 for i in range(n):
