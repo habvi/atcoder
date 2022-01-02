@@ -9,7 +9,7 @@ def is_ok(x):
     tot = 0
     for i in range(n):
         tot += bisect(b, x // a[i])
-    return tot < K
+    return tot >= K
 
 def bisect2(ng, ok):
     while abs(ok - ng) > 1:
@@ -20,5 +20,5 @@ def bisect2(ng, ok):
             ng = mid
     return ok
 
-bi = bisect2(a[-1] * b[-1] + 1, 0)
-print(bi + 1)
+bi = bisect2(0, a[-1] * b[-1] + 1)
+print(bi)
