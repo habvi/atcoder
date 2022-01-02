@@ -1,14 +1,15 @@
 from itertools import product
-s = input()
-n = len(s)
-ans = 20
-for pr in product([0, 1], repeat=n):
-    a = 0
-    cnt = 0
+n = input()
+k = len(n)
+ans = float('inf')
+for pr in product((0, 1), repeat=k):
+    tot = 0
+    erase = 0
     for i, p in enumerate(pr):
-        if p: a += int(s[i])
-        else: cnt += 1
-
-    if a % 3 == 0 and a != 0:
-        ans = min(ans, cnt)
-print(ans if ans != 20 else -1)
+        if p:
+           tot += int(n[i])
+        else:
+            erase += 1
+    if tot % 3 == 0:
+        ans = min(ans, erase)
+print(ans if ans != k else -1)
