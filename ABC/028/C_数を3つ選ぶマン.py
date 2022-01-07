@@ -3,4 +3,4 @@ a = list(map(int, input().split()))
 ans = set()
 for c in combinations(a, 3):
     ans.add(sum(c))
-print(sorted(list(ans))[-3])
+print(sorted(ans)[-3])
