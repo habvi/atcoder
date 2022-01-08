@@ -1,5 +1,5 @@
 s = input()
-t = 'oxx' * 20
+t = 'oxx' * 5
 if s in t:
     print('Yes')
 else:
