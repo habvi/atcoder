@@ -1,7 +1,6 @@
 s = input()
 n = len(s) // 2
-for i in range(n):
-    if s[i] != s[~i]:
-        print('No')
-        exit()
-print('Yes' if s[:n] == s[-n:] else 'No')
+if s == s[::-1] and s[:n] == s[-n:]:
+    print('Yes')
+else:
+    print('No')
