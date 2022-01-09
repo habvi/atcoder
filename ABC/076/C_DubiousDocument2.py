@@ -1,13 +1,11 @@
-# Hack case..
-# ?b??
-# ab
-
 s = input()
 t = input()
 ng = 'UNRESTORABLE'
 ls = len(s)
 lt = len(t)
-for i in range(ls - lt, -1, -1):
+
+lis = []
+for i in range(ls - lt + 1):
     ss = s[i : i+lt]
     for a, b in zip(ss, t):
         if a not in ('?', b):
@@ -21,6 +19,7 @@ for i in range(ls - lt, -1, -1):
         
         for j in range(i + lt, ls):
             ans.append('a' if s[j] == '?' else s[j])
-        print("".join(ans))
-        exit()
-print(ng)
+        lis.append("".join(ans))
+        
+lis.sort()
+print(lis[0] if lis else ng)
