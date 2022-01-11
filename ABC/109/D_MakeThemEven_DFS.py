@@ -1,12 +1,11 @@
 import sys
 sys.setrecursionlimit(10**7)
 def dfs(y, x):
-    print(y, x)
     seen[y][x] = 1
-    for dy, dx in zip([0, 1, 0, -1], [1, 0, -1, 0]):
+    for dy, dx in zip((0, 1, 0, -1), (1, 0, -1, 0)):
         ny, nx = y + dy, x + dx
-        if not (0 <= ny < h and 0 <= nx < w): continue
-        if seen[ny][nx]: continue
+        if not (0 <= ny < h and 0 <= nx < w) or seen[ny][nx]:
+            continue
         dfs(ny, nx)
         if a[ny][nx] % 2 == 1:
             a[y][x] += 1
