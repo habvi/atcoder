@@ -1,6 +1,6 @@
 h, w = map(int, input().split())
 a = [list(map(int, input().split())) for _ in range(h)]
-s
+
 ans = []
 for i in range(h - 1):
     for j in range(w):
