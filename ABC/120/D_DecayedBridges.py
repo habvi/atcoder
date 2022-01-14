@@ -15,16 +15,15 @@ def is_same(x, y): return root(x) == root(y)
 def size(x): return -rank[root(x)]
 
 n, m = map(int, input().split())
-q = [tuple(map(int, input().split())) for _ in range(m)]
+q = [tuple(map(lambda x: int(x) - 1, input().split())) for _ in range(m)]
 rank = [-1] * n
-ans = n * (n - 1) // 2
-lis = [ans]
+tot = (n - 1) * n // 2
+ans = [tot]
 for a, b in reversed(q[1:]):
-    a -= 1; b -= 1
     if not is_same(a, b):
-        ans -= size(a) * size(b)
+        tot -= size(a) * size(b)
         unite(a, b)
-    lis.append(ans)
+    ans.append(tot)
 
-for a in lis[::-1]:
+for a in ans[::-1]:
     print(a)
