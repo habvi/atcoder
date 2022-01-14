@@ -3,7 +3,6 @@ n = int(input())
 A = sorted(map(int, input().split()))
 B = deque(sorted(map(int, input().split())))
 C = deque(sorted(map(int, input().split())))
-print(A)
 
 ans = 0
 for a in A:
@@ -19,8 +18,7 @@ for a in A:
     if not C:
         print(ans)
         exit()
+    
     ans += 1
     C.popleft()
-    print(a, B, C)
-    print('---')
 print(ans)
