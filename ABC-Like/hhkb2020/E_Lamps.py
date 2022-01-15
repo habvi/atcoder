@@ -41,12 +41,17 @@ for i in range(h):
             r[i][j - 1] = r[i][j] + 1
 
 k = h * w - k
-tot = pow(2, k, MOD)
+lenp = k + 5
+pow_2_n = [1] * lenp
+for i in range(1, lenp):
+    pow_2_n[i] = pow_2_n[i - 1] * 2 % MOD
+
+tot = pow_2_n[k]
 ans = 0
 for i in range(h):
     for j in range(w):
         if s[i][j] == '#':
             continue
         ar = u[i][j] + d[i][j] + l[i][j] + r[i][j] - 3
-        ans += tot - pow(2, k - ar, MOD)
+        ans += tot - pow_2_n[k - ar]
 print((ans + MOD) % MOD)
