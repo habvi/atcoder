@@ -1,9 +1,9 @@
 n = int(input())
-p = list(map(int, input().split()))
+P = list(map(int, input().split()))
 s = set()
-mn = 0
-for i in range(n):
-    s.add(p[i])
-    while mn in s:
-        mn += 1
-    print(mn)
+now = 0
+for p in P:
+    s.add(p)
+    while now in s:
+        now += 1
+    print(now)
