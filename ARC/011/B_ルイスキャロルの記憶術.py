@@ -1,18 +1,17 @@
 n = int(input())
 w = list(input().split())
 d = {}
-for i, (x, y) in enumerate(['bc', 'dw', 'tj', 'fq', 'lv', 'sx', 'pm', 'hk', 'ng', 'zr'], 1):
-    d[x] = str(i % 10)
-    d[y] = str(i % 10)
-print(d)
+for i, (s, t) in enumerate(['zr', 'bc', 'dw', 'tj', 'fq', 'lv', 'sx', 'pm', 'hk', 'ng']):
+    d[s] = str(i)
+    d[t] = str(i)
 
 ans = []
-for ww in w:
-    a = ''
-    for s in ww:
-        s = s.lower()
-        if s not in d: continue
-        a += d[s]
+for s in w:
+    a = []
+    for t in s:
+        t = t.lower()
+        if t in d:
+            a.append(d[t])
     if a:
-        ans.append(a)
+        ans.append("".join(a))
 print(*ans)
