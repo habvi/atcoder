@@ -1,20 +1,19 @@
 import sys
 sys.setrecursionlimit(10 ** 7)
 def dfs(v, p):
-    if p != -1:
-        cnt[v] += cnt[p]
-    for nv in G[v]:
+    for nv in g[v]:
         if nv == p:
             continue
+        cnt[nv] += cnt[v]
         dfs(nv, v)
-        
+
+from collections import defaultdict
 n, q = map(int, input().split())
-G = [[] for _ in range(n)]
+g = defaultdict(list)
 for _ in range(n - 1):
-    a, b = map(int, input().split())
-    a -= 1; b -= 1
-    G[a].append(b)
-    G[b].append(a)
+    a, b = map(lambda x: int(x) - 1, input().split())
+    g[a].append(b)
+    g[b].append(a)
 
 cnt = [0] * n
 for _ in range(q):
