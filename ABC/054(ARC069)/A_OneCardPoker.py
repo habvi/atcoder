@@ -1,7 +1,9 @@
 a, b = map(int, input().split())
-s = [i for i in range(2, 14)] + [1]
-al, bb = s.index(a), s.index(b)
+card = list(range(2, 14)) + [1]
 
-if al == bb: print('Draw')
-elif al > bb: print('Alice')
-else: print('Bob')
+if a == b:
+    print('Draw')
+elif card.index(a) > card.index(b):
+    print('Alice')
+else:
+    print('Bob')
