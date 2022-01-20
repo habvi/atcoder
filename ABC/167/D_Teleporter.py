@@ -1,18 +1,22 @@
+from collections import defaultdict
 n, k = map(int, input().split())
 A = list(map(lambda x: int(x) - 1, input().split()))
-seen = set()
-loop = []
+
+idx = defaultdict(lambda : -1)
+route = []
 now = 0
-for _ in range(n):
-    seen.add(now)
-    loop.append(now)
+for i in range(n):
+    idx[now] = i
+    route.append(now)
     now = A[now]
-    if now in seen:
+    if now in idx:
         break
-    
-idx = loop.index(now)
-if k < idx:
-    print(loop[k] + 1)
+
+loop = idx[now]
+if k < loop:
+    print(route[k] + 1)
     exit()
 
-print(loop[(k - idx) % (len(loop) - idx) + idx] + 1)
+route = route[loop:]
+k -= loop
+print(route[k % len(route)] + 1)
