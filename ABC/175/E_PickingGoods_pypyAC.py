@@ -2,7 +2,7 @@ R, C, K = map(int, input().split())
 g = [[0] * C for _ in range(R)]
 for _ in range(K):
     r, c, v = map(int, input().split())
-    r -= 1; c -= 1
+    r, c = r - 1, c - 1
     g[r][c] = v
 
 dp = [[-float('inf')] * C for _ in range(4)]
@@ -18,6 +18,6 @@ for i in range(R):
 
     ndp = [[-float('inf')] * C for _ in range(4)]
     for j in range(C):
-        ndp[0][j] = max(ndp[0][j], max(dp[0][j], dp[1][j], dp[2][j], dp[3][j]))
+        ndp[0][j] = max(ndp[0][j], dp[0][j], dp[1][j], dp[2][j], dp[3][j])
     dp = ndp
 print(max(dp[0]))
