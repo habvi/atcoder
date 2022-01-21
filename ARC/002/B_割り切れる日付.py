@@ -8,7 +8,4 @@ while not ok(y, m, d):
     dt = date(y, m, d) + timedelta(days=1)
     y, m, d = dt.year, dt.month, dt.day
 
-def zero(x):
-    return '0' * (2 - len(str(x))) + str(x)
-
-print(f'{y}/{zero(m)}/{zero(d)}')
+print(f'{y}/{"%02d" % m}/{"%02d" % d}')
