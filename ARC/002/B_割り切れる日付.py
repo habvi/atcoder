@@ -9,3 +9,5 @@ while not ok(y, m, d):
     y, m, d = dt.year, dt.month, dt.day
 
 print(f'{y}/{"%02d" % m}/{"%02d" % d}')
+
+# print('%d/%02d/%02d' % (y, m, d))
