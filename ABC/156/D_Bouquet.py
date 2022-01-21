@@ -1,16 +1,18 @@
 n, a, b = map(int, input().split())
 MOD = 10**9 + 7
 
-len_inv = 2*(10**5) + 10
-inv = [1]*(len_inv)
-for i in range(2, len_inv):
-    inv[i] = inv[MOD%i] * (MOD - MOD//i) % MOD
+lenc = 2 * 10**5 + 5
+invfact = [1] * (lenc)
+for i in range(2, lenc):
+    invfact[i] = invfact[MOD % i] * (MOD - MOD // i) % MOD
 
 def comb(n, k, MOD):
+    if n < k or n < 0 or k < 0:
+        return 0
     x = 1
     for i in range(k):
         x *= (n-i)
-        x *= inv[i+1]
+        x *= invfact[i+1]
         x %= MOD
     return x
 
