@@ -1,31 +1,33 @@
 from itertools import permutations
-s1 = input()
-s2 = input()
-s3 = input()
-s = set(s1 + s2 + s3)
-if len(s) > 10:
+from collections import Counter
+ 
+s1 = list(input())
+s2 = list(input())
+s3 = list(input())
+ 
+c = Counter(s1) + Counter(s2) + Counter(s3)
+n = len(c)
+if n > 10:
     print('UNSOLVABLE')
     exit()
-
-d = {ss : i for i, ss in enumerate(s)}
-for pr in permutations((i for i in range(10)), len(d)):
-    if pr[d[s1[0]]] == 0 or pr[d[s2[0]]] == 0 or pr[d[s3[0]]] == 0:
+    
+nums = list(c.keys())
+d = dict(zip(nums, range(n)))
+ 
+for p in permutations(range(10), n):
+    f1 = p[d[s1[0]]]
+    f2 = p[d[s2[0]]]
+    f3 = p[d[s3[0]]]
+    if not f1 or not f2 or not f3:
         continue
-    t1 = [str(pr[d[s]]) for s in s1]
-    t2 = [str(pr[d[s]]) for s in s2]
-    t3 = [str(pr[d[s]]) for s in s3]
-    j1 = "".join(t1)
-    j2 = "".join(t2)
-    j3 = "".join(t3)
-    if int(j1) + int(j2) == int(j3):
-        print(j1)
-        print(j2)
-        print(j3)
+    
+    t1 = int(''.join([str(p[d[s]]) for s in s1]))
+    t2 = int(''.join([str(p[d[s]]) for s in s2]))
+    t3 = int(''.join([str(p[d[s]]) for s in s3]))
+ 
+    if t1 > 0 and t2 > 0 and t3 > 0 and t1 + t2 == t3:
+        for ans in (t1, t2, t3):
+            print(ans)
         exit()
+        
 print('UNSOLVABLE')
-
-'''
-send
-more
-money
-'''
