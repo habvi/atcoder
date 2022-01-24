@@ -3,6 +3,10 @@ from collections import Counter
 n = int(input())
 V = list(map(int, input().split()))
 
+if len(set(V)) == 1:
+    print(n // 2)
+    exit()
+    
 odd = Counter()
 even = Counter()
 for i, v in enumerate(V):
@@ -16,14 +20,11 @@ o1, a = odd.most_common(1)[0]
 for k, v in even.items():
     if o1 == k:
         continue
-    ans = min(ans, n // 2 - a + n // 2 - v)
+    ans = min(ans, n - a - v)
 
 e1, a = even.most_common(1)[0]
 for k, v in odd.items():
     if e1 == k:
         continue
-    ans = min(ans, n // 2 - a + n // 2 - v)
-
-if len(set(V)) == 1:
-    ans = n // 2
+    ans = min(ans, n - a - v)
 print(ans)
