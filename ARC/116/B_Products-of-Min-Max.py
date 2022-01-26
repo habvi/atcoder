@@ -1,15 +1,14 @@
 n = int(input())
 A = list(map(int, input().split()))
-A.sort()
+A.sort(reverse=True)
 MOD = 998244353
 
 ans = 0
 ac = 0
 for a in A:
-    ans += a * a
-    ans += a * ac
+    ans += a * (a + ac)
     ans %= MOD
-    
-    ac = ac * 2 + a
+
+    ac = a + ac * 2
     ac %= MOD
 print(ans)
