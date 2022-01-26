@@ -1,18 +1,14 @@
-n, q = map(int,input().split())
-s = input()
-a = [0]*n
-cnt = 0
-A = 0
-for i in range(n):
-    if s[i] == 'A':
-        A = 1
-    elif A == 1 and s[i] == 'C':
-        cnt += 1
-        A = 0
-    else:
-        A = 0
-    a[i] = cnt
-    
-for i in range(q):
-    l, r = map(int,input().split())
-    print(a[r-1]-a[l-1])
+from itertools import accumulate
+
+n, q = map(int, input().split())
+S = input()
+
+cnt = [0] * n
+for i in range(1, n):
+    if S[i - 1 : i + 1] == 'AC':
+        cnt[i] += 1
+
+ac = list(accumulate(cnt))
+for _ in range(q):
+    l, r = map(int, input().split())
+    print(ac[r - 1] - ac[l - 1])
