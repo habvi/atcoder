@@ -17,8 +17,7 @@ for i, s in enumerate(ls):
     if s == '.':
         ans += 1
         for j in range(r):
-            if i + j < len(ls):
-                ls[i + j] = 'o'
+            ls[i + j] = 'o'
     if i != 0:
         ans += 1
     
