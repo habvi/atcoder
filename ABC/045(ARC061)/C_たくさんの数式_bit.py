@@ -1,12 +1,12 @@
-s = input()
-n = len(s)
+S = input()
+n = len(S)
+
 ans = 0
-for i in range(1 << n-1):
-    tot = s[0]
-    for j in range(n - 1):
-        if i & (1<<j):
-            tot += "+" + s[j + 1]
-        else:
-            tot += s[j + 1]
-    ans += eval(tot)
+for bit in range(1 << n - 1):
+    t = S[0]
+    for i in range(n - 1):
+        if bit >> i & 1:
+            t += '+'
+        t += S[i + 1]
+    ans += eval(t)
 print(ans)
