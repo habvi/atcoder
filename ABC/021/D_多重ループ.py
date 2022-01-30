@@ -1,12 +1,11 @@
 def comb(n, r, MOD):
     if n < r or n < 0 or r < 0:
         return 0
+    r = min(r, n - r)
     nmrt = fact[n]
     dnmnt = invfact[n - r] * invfact[r] % MOD
     return nmrt * dnmnt % MOD
 
-def nHr(n, r):
-    return comb(n + r - 1, r, MOD)
 
 MOD = 10**9 + 7
 lenc = 2 * 10**5 + 10
@@ -20,4 +19,4 @@ for i in range(lenc - 1, 0, -1):
 
 n = int(input())
 k = int(input())
-print(nHr(n, k))
+print(comb(n + k - 1, k, MOD))
