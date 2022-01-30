@@ -7,9 +7,7 @@ for a in A:
     if a > now:
         must = (a - now + w - 1) // w
         ans += must
-        now = a + w
-    else:
-        now = a + w
+    now = a + w
 
 ans += (l - now + w - 1) // w
 print(ans)
