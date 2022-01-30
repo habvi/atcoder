@@ -1,12 +1,9 @@
-a, b, w = map(int, input().split())
-w *= 1000
-m = []
-for i in range(w//b - 5, w//a + 5):
-    if i == 0: continue
-    if a <= w/i <= b:
-        m.append(i)
+a, b, kg = map(int, input().split())
+g = 1000 * kg
 
-if m:
-    print(min(m), max(m))
+mn = (g + b - 1) // b
+mx = g // a
+if mn <= mx:
+    print(mn, mx)
 else:
-    print("UNSATISFIABLE")
+    print('UNSATISFIABLE')
