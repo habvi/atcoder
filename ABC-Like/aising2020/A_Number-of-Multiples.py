@@ -4,3 +4,7 @@ ans = 0
 for i in range(l, r + 1):
     ans += i % d == 0
 print(ans)
+
+
+
+# print(r//d - (l - 1)//d)
