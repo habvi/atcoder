@@ -10,6 +10,7 @@ def bisect(ng, ok):
             ng = mid
     return ok
 
+
 a, b, x = map(int, input().split())
-bi = bisect(10**9 + 1, 0)
-print(bi)
+
+print(bisect(10**9 + 1, 0))
