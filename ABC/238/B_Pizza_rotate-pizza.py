@@ -9,8 +9,7 @@ for a in A:
         T.append((s + a) % 360)
     S = T
 
-S.sort()
-S = [0, *S, 360]
+S = [0, *sorted(S), 360]
 
 ans = 0
 for i in range(len(S) - 1):
