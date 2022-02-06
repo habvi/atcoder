@@ -1,30 +1,24 @@
 from collections import deque
 from itertools import groupby
+
 n, K = map(int, input().split())
-s = input()
-a = []
-for k, v in groupby(s):
-    a.append((int(k), len(list(v))))
+S = input()
 
 q = deque([])
-cnt = 0
-tot = 0
+bit = 0
+total = 0
 ans = 0
-for b, k in a:
-    if b:
-        q.append((b, k))
-        tot += k
-        ans = max(ans, tot)
-        continue
-    
-    while q and cnt >= K:
-        rb, rk = q.popleft()
-        if not rb:
-            cnt -= 1
-        tot -= rk
+for k, g in groupby(S):
+    lg = len(tuple(g))
 
-    q.append((b, k))
-    cnt += 1
-    tot += k
-    ans = max(ans, tot)
+    q.append((k, lg))
+    total += lg
+    bit += (k == '0')
+
+    while q and bit > K:
+        rb, rn = q.popleft()
+        bit -= (rb == '0')
+        total -= rn
+
+    ans = max(ans, total)
 print(ans)
