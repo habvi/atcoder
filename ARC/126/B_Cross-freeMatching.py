@@ -6,12 +6,10 @@ for _ in range(m):
     x, y = map(int, input().split())
     A[x].append(y)
 
-for vs in A:
-    vs.sort(reverse=True)
-
 lis = [0]
 ans = 0
 for vs in A:
+    vs.sort(reverse=True)
     for v in vs:
         if lis[-1] < v:
             lis.append(v)
