@@ -10,6 +10,7 @@ def div_lis(x):
         i += 1
     return div
 
+
 n = int(input())
 A = list(map(int, input().split()))
 B = list(map(int, input().split()))
@@ -19,10 +20,10 @@ lis = [float('inf')] * (n + 1)
 for b in B:
     div = div_lis(b)
     div.sort(reverse=True)
-    
+
     for d in div:
         bi = bisect_left(lis, d)
-        lis[bi] = d 
+        lis[bi] = d
 
 ans = bisect_left(lis, n + 1)
 print(ans)

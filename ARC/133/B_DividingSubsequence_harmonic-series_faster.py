@@ -11,10 +11,10 @@ for a in A:
     for i in range(a, n + 1, a):
         mlt.append(bi[i])
     mlt.sort(reverse=True)
-    
+
     for m in mlt:
         i = bisect_left(lis, m)
-        lis[i] = m 
+        lis[i] = m
 
 ans = bisect_left(lis, n + 1)
 print(ans)
