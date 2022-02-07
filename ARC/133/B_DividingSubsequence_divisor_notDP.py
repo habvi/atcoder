@@ -17,14 +17,17 @@ A = list(map(int, input().split()))
 B = list(map(int, input().split()))
 ai = {a : i for i, a in enumerate(A)}
 
-lis = [float('inf')] * (n + 1)
+lis = [-1]
+ans = 0
 for b in B:
     div = div_lis(b)
     div.sort(reverse=True)
 
     for d in div:
-        bi = bisect_left(lis, d)
-        lis[bi] = d
+        if lis[-1] < d:
+            lis.append(d)
+            ans += 1
+        else:
+            lis[bisect_left(lis, d)] = d
 
-ans = bisect_left(lis, n + 1)
 print(ans)
