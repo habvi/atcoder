@@ -7,11 +7,11 @@ qx = deque()
 qs = deque()
 ans = 0
 xor, sigma = 0, 0
-for x, s in zip(A, A):
-    qx.append(x)
-    qs.append(s)
-    xor ^= x
-    sigma += s
+for a in A:
+    qx.append(a)
+    qs.append(a)
+    xor ^= a
+    sigma += a
 
     while qx and xor != sigma:
         xor ^= qx.popleft()
