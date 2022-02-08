@@ -1,19 +1,15 @@
+def dist_line_to_point(x1, y1, x2, y2, px, py):
+    nmrt = abs((y2 - y1)*px + (x1 - x2)*py + x2*y1 - y2*x1)
+    dnmnt = ((y2 - y1)**2 + (x2 - x1)**2) ** 0.5
+    return nmrt / dnmnt
+
+
 sx, sy = map(int, input().split())
 n = int(input())
-z = [tuple(map(int, input().split())) for _ in range(n)]
+P = [tuple(map(int, input().split())) for _ in range(n)]
+P.append(P[0])
 
 ans = float('inf')
-for i in range(n):
-    (x1, y1), (x2, y2) = z[i], z[(i+1)%n]
-    if x1 == x2:
-        a = 1
-        b = 0
-        c = -x1
-    else:
-        a = (y2-y1) / (x2-x1)
-        b = -1
-        c = ((y2-y1) / (x2-x1)) * (-x1) + y1
-    
-    d = abs(a*sx + b*sy + c) / ((a**2 + b**2)**0.5)
-    ans = min(ans, d)
+for (x1, y1), (x2, y2) in zip(P, P[1:]):
+    ans = min(ans, dist_line_to_point(x1, y1, x2, y2, sx, sy))
 print(ans)
