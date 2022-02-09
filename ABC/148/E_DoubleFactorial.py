@@ -3,13 +3,9 @@ if n % 2:
     print(0)
     exit()
 
-a = 50
-five = [a]
-for i in range(25):
-    a *= 5
-    five.append(a)
-
+x = 10
 ans = 0
-for f in five:
-    ans += n // f
-print(n //10 + ans)
+while n // x > 0:
+    ans += n // x
+    x *= 5
+print(ans)
