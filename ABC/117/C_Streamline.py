@@ -1,8 +1,13 @@
 n, m = map(int, input().split())
-x = list(map(int, input().split()))
-x.sort()
-d = []
+X = list(map(int, input().split()))
+X.sort()
+
+dst = []
 for i in range(m - 1):
-    d.append(x[i + 1] - x[i])
-d.sort(reverse= True)
-print(sum(d) - sum(d[:n - 1]))
+    dst.append(X[i + 1] - X[i])
+
+dst.sort()
+for _ in range(n - 1):
+    if dst:
+        dst.pop()
+print(sum(dst))
