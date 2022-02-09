@@ -1,13 +1,12 @@
 n = int(input())
-s = set()
-for i in range(1, int(n ** 0.5) + 1):
-    if n % i != 0:
-        continue
-    j = n // i
-    for k in (i, j):
-        k -= 1
-        if k == 0:
-            continue
-        if n // k == n % k:
-            s.add(k)
-print(sum(s))
+
+ans = 0
+i = 1
+while i * i <= n:
+    if n % i == 0:
+        j = n // i - 1
+        if j > 0 and n // j == n % j:
+            ans += j
+    i += 1
+
+print(i, ans)
