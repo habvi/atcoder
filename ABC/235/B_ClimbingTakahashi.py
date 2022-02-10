@@ -1,9 +1,10 @@
 n = int(input())
-h = list(map(int, input().split()))
-a = h[0]
-for i in range(1, n):
-    if h[i] <= a:
-        print(h[i - 1])
-        exit()
-    a = h[i]
-print(a)
+H = list(map(int, input().split()))
+
+now = 0
+for h in H:
+    if h > now:
+        now = h
+    else:
+        break
+print(now)
