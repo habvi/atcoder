@@ -1,7 +1,7 @@
 n, A = map(int, input().split())
 X = list(map(int, input().split()))
 
-mx = 2505
+mx = max(n, max(X)) * A
 dp = [[[0] * (mx + 1) for _ in range(n + 1)] for _ in range(n + 1)]
 dp[0][0][0] = 1
 
