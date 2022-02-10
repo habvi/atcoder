@@ -1,21 +1,24 @@
-s = input()
-q = int(input())
-cnt = 0
-l, r = "", ""
-for _ in range(q):
-    a = input().split()
-    if a[0] == '1':
-        cnt = 1 - cnt
-        continue
-    c = a[2]
-    if a[1] == '1':
-        if cnt == 0: l += c
-        else: r += c
-    else:
-        if cnt == 0: r += c
-        else: l += c
+from collections import deque
 
-if cnt == 0:
-    print(l[::-1] + s + r)
-else:
-    print(r[::-1] + s[::-1] + l)
+S = deque(input())
+
+rev = 0
+for _ in range(int(input())):
+    t, *q = input().split()
+    if t == '1':
+        rev = 1 - rev
+    else:
+        num, s = q
+        if num == '1':
+            if rev:
+                S.append(s)
+            else:
+                S.appendleft(s)
+        else:
+            if rev:
+                S.appendleft(s)
+            else:
+                S.append(s)
+
+ans = ''.join(S)
+print(ans[::-1] if rev else ans)
