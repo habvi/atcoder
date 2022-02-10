@@ -1,25 +1,18 @@
-n, m, k = map(int, input().split())
-A = list(map(int, input().split()))
+n, m, K = map(int, input().split())
+A = [0, *map(int, input().split())]
 B = list(map(int, input().split()))
-r = 0
-tot = 0
-for i in range(m):
-    if tot + B[i] <= k:
-        tot += B[i]
-        r += 1
-    else:
-        break
 
-ans = r
-for l in range(n):
-    if A[l] > k:
+ans = 0
+total = sum(B)
+for i, a in enumerate(A):
+    if a > K:
         break
-    tot += A[l]
-    l += 1
-    while tot > k and r-1 >= 0:
-        tot -= B[r-1]
-        r -= 1
-    if tot > k or r < 0:
-        break
-    ans = max(ans, l + r)
+    total += a
+
+    while B and total > K:
+        rm = B.pop()
+        total -= rm
+
+    if total <= K:
+        ans = max(ans, len(B) + i)
 print(ans)
