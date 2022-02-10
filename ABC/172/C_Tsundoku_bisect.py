@@ -1,14 +1,17 @@
-from itertools import accumulate
 from bisect import bisect
-n, m, k = map(int, input().split())
+from itertools import accumulate
+
+n, m, K = map(int, input().split())
 A = list(map(int, input().split()))
 B = list(map(int, input().split()))
-ac = [0] + list(accumulate(A))
-bc = list(accumulate(B))
+
+aca = [0, *accumulate(A)]
+acb = list(accumulate(B))
 
 ans = 0
-for i in range(n+1):
-    if ac[i] > k: break
-    bi = bisect(bc, k - ac[i])
-    ans = max(ans, i + bi)
+for i, a in enumerate(aca):
+    if a > K:
+        break
+    bi = bisect(acb, K - a)
+    ans = max(ans,  i + bi)
 print(ans)
