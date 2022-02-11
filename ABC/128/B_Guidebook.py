@@ -1,9 +1,11 @@
 n = int(input())
-a = []
+
+sp = []
 for i in range(n):
     s, p = input().split()
-    a.append((s, p, i + 1))
-a.sort(key=lambda x: (x[0], -int(x[1])))
+    sp.append((s, int(p), i + 1))
 
-for s, p, i in a:
+sp.sort(key=lambda x: (x[0], -x[1]))
+
+for _, _, i in sp:
     print(i)
