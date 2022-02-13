@@ -8,12 +8,6 @@ def ceil(x):
 def floor(x):
     return x // 2
 
-
-x = int(input())
-MOD = 998244353
-
-memo = defaultdict(int)
-
 def f(x):
     if x <= 4:
         return x
@@ -23,5 +17,11 @@ def f(x):
     res = f(ceil(x)) * f(floor(x)) % MOD
     memo[x] = res
     return res
+
+
+x = int(input())
+MOD = 998244353
+
+memo = defaultdict(int)
 
 print(f(x) % MOD)
