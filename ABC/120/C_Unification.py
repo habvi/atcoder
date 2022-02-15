@@ -10,3 +10,16 @@ for s in S:
         stack.append(s)
 
 print(ans)
+
+
+
+# S = input()
+
+# red, blue = 0, 0
+# for s in S:
+#     if s == '0':
+#         red += 1
+#     else:
+#         blue += 1
+
+# print(min(red, blue) * 2)
