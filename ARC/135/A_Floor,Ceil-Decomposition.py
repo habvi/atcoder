@@ -8,13 +8,13 @@ def ceil(x):
 def floor(x):
     return x // 2
 
-def f(x):
+def solve(x):
     if x <= 4:
         return x
     if x in memo:
         return memo[x]
 
-    res = f(ceil(x)) * f(floor(x)) % MOD
+    res = solve(ceil(x)) * solve(floor(x)) % MOD
     memo[x] = res
     return res
 
@@ -24,4 +24,4 @@ MOD = 998244353
 
 memo = defaultdict(int)
 
-print(f(x) % MOD)
+print(solve(x))
