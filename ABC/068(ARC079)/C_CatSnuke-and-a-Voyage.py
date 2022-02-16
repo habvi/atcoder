@@ -8,10 +8,10 @@ for _ in range(m):
     g[b].append(a)
 
 for v in g[0]:
-    for nv in g[v]:
-        if nv == n - 1:
-            print('POSSIBLE')
-            exit()
+    if (n - 1) in g[v]:
+        print('POSSIBLE')
+        exit()
+
 print('IMPOSSIBLE')
 
 
