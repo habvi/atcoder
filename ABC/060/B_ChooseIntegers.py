@@ -1,8 +1,8 @@
 a, b, c = map(int, input().split())
-k = a
-for i in range(101):
-    if k % b == c:
+
+for i in range(1, 101):
+    if (a * i) % b == c:
         print('YES')
         exit()
-    k += a 
+
 print('NO')
