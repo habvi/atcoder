@@ -22,9 +22,7 @@ for d, i, j in edges:
             erase.add((i, j))
 
 ans = 0
-for i in range(n):
-    for j in range(i + 1, n):
-        if (i, j) in erase:
-            continue
-        ans += dst[i][j]
+for d, i, j, in edges:
+    if (i, j) not in erase:
+        ans += d
 print(ans)
