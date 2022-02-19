@@ -10,8 +10,8 @@ def dfs(v, p):
         dfs(nv, v)
         for m in num[nv]:
             insort(num[v], m)
-        while len(num[v]) > 20:
-            num[v].pop(0)
+            if len(num[v]) > 20:
+                num[v].pop(0)
 
 
 n, q = map(int, input().split())
