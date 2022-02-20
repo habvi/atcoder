@@ -1,26 +1,17 @@
-from collections import deque
-
 n = int(input())
 A = list(map(int, input().split()))
 
-kind = [(-1, -1)]
-q = deque([])
+stack = [(-1, -1)]
 
 for a in A:
-    num, count_ = kind[-1]
+    num, count_ = stack[-1]
     if num != a:
-        kind.append((a, 1))
-        q.append(a)
-        ans = len(q)
+        stack.append((a, 1))
     else:
         if count_ + 1 == a:
-            kind.pop()
             for _ in range(count_):
-                q.pop()
+                stack.pop()
         else:
-            kind.pop()
-            kind.append((a, count_ + 1))
-            q.append(a)
-        ans = len(q)
+            stack.append((a, count_ + 1))
 
-    print(ans)
+    print(len(stack) - 1)
