@@ -12,3 +12,15 @@ for i in range(n):
 
         P[i], P[j] = P[j], P[i]
 print('NO')
+
+
+
+# n = int(input())
+# P = list(map(int, input().split()))
+
+# count_ = 0
+# for i, p in enumerate(P, 1):
+#     if p != i:
+#         count_ += 1
+
+# print('YES' if count_ <= 2 else 'NO')
