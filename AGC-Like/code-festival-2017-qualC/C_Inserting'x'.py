@@ -1,9 +1,10 @@
 s = input()
+
 n = len(s)
 if len(set(s)) == 1:
     print(0)
     exit()
-    
+
 cnt = 0
 i = 0
 l = i
