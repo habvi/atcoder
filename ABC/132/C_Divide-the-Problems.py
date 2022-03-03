@@ -1,5 +1,6 @@
 n = int(input())
 d = list(map(int, input().split()))
+
 d.sort()
-h = n // 2
-print(d[h] - d[h - 1])
+i = n // 2
+print(d[i] - d[i - 1])
