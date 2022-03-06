@@ -1,15 +1,9 @@
-def two(s):
-    if s == 'A':
-        return 'BC'
-    elif s == 'B':
-        return 'CA'
-    else:
-        return 'AB'
+def stoi(s):
+    return ord(s) - ord('A')
 
 
 S = input()
-
-abc = 'ABC'
+A = 'ABC'
 
 q = int(input())
 for _ in range(q):
@@ -21,21 +15,22 @@ for _ in range(q):
         continue
 
     route = [k]
-    while k > 0 and t:
+    while k and t:
         k //= 2
         route.append(k)
         t -= 1
 
+    start = A[(stoi(S[route[-1]]) + t) % 3]
+
+    route.pop()
     route = route[::-1]
 
-    if t:
-        now = abc[(ord(S[0]) - ord('A') + t - 1) % 3]
-        for r in route:
-            nxt = two(now)
-            now = nxt[r % 2]
-    else:
-        now = S[route[0]]
-        for r in route[1:]:
-            nxt = two(now)
-            now = nxt[r % 2]
-    print(now)
+    idx = stoi(start)
+    for r in route:
+        if r % 2:
+            idx += 2
+        else:
+            idx += 1
+        idx %= 3
+
+    print(A[idx])
