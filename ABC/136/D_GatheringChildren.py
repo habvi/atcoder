@@ -8,27 +8,20 @@ def floor(x):
 
 
 S = input()
-ls = len(S)
+n = len(S)
 
-lr = []
-for k, v in groupby(S):
-    lr.append((k, len(list(v))))
+i = 0
+ans = [0] * n
+for lr, v in groupby(S):
+    num = len(list(v))
 
-ans = [0] * ls
-left, right = 0, 0
-j = -1
-for i, (_, num) in enumerate(lr):
-    if i % 2 == 0:
-        left += ceil(num)
-        right += floor(num)
-        j += num
+    if lr == 'L':
+        ans[i - 1] += floor(num)
+        ans[i] += ceil(num)
+        i += num
     else:
-        left += floor(num)
-        right += ceil(num)
-        ans[j] = left
-        ans[j + 1] = right
-
-        left, right = 0, 0
-        j += num
+        i += num
+        ans[i - 1] += ceil(num)
+        ans[i] += floor(num) 
 
 print(*ans)
