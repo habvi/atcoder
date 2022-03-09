@@ -1,5 +1,15 @@
 from collections import defaultdict
 
+def is_ok(num):
+    for a in num:
+        for b in num:
+            if a == b:
+                continue
+            if not (a in g[b] and b in g[a]):
+                return False
+    return True
+
+
 n, m = map(int, input().split())
 g = defaultdict(lambda : set())
 for _ in range(m):
@@ -16,14 +26,7 @@ for bit in range(1 << n):
             num.append(i)
             count_ += 1
 
-    able = True
-    for a in num:
-        for b in num:
-            if a == b:
-                continue
-            if not (a in g[b] and b in g[a]):
-                able = False
-                break
-    if able:
+    if is_ok(num):
         ans = max(ans, count_)
+
 print(ans)
