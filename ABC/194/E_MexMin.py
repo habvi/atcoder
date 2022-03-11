@@ -1,19 +1,13 @@
-from collections import defaultdict
+from collections import Counter
 
 n, m = map(int, input().split())
 A = list(map(int, input().split()))
 
-count_ = defaultdict(int)
-for i in range(m):
-    a = A[i]
-    count_[a] += 1
+count_ = Counter(A[:m])
 
-for i in range(n):
-    if count_[i] == 0:
-        now = i
-        break
-else:
-    now = max(A) + 1
+now = 0
+while count_[now]:
+    now += 1
 
 for i in range(m, n):
     a = A[i]
@@ -21,6 +15,7 @@ for i in range(m, n):
 
     rm = A[i - m]
     count_[rm] -= 1
-    if count_[rm] == 0 and rm < now:
-        now = rm
+    if count_[rm] == 0:
+        now = min(now, rm)
+
 print(now)
