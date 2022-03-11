@@ -1,19 +1,22 @@
-s = input()
-ok, ng = set(), set()
-for i, ss in enumerate(s):
-    if ss == 'o': ok.add(i)
-    elif ss == 'x': ng.add(i)
+def check(x):
+    ok = set()
+    for i in x:
+        if (num := S[int(i)]) == 'x':
+            return False
+
+        if num == 'o':
+            ok.add(int(i))
+    return not (must - ok)
+
+
+S = input()
+must = set()
+for i, s in enumerate(S):
+    if s == 'o':
+        must.add(i)
 
 ans = 0
-for i in range(10000):
-    A = '0' * (4 - len(str(i))) + str(i)
-    ok_, ng_ = set(), set()
-    for a in A:
-        if int(a) in ok:
-            ok_.add(int(a))
-        if int(a) in ng:
-            ng_.add(int(a))
-
-    if len(ng_) == 0 and ok == ok_:
+for num in range(10000):
+    if check("%04d" % num):
         ans += 1
 print(ans)
