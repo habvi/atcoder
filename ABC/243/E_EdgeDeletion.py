@@ -21,17 +21,15 @@ for k in range(n):
         for j in range(n):
             dst[i][j] = min(dst[i][j], dst[i][k] + dst[k][j])
 
-ng = set()
-for i in range(n):
-    for j in range(i + 1, n):
-        for k in range(n):
-            if k not in (i, j) and dst[i][k] + dst[k][j] <= edges[(i, j)]:
-                ng.add((i, j))
-                break
-
 ans = 0
 for i in range(n):
     for j in range(i + 1, n):
-        if edges[(i, j)] and (i, j) in ng:
-            ans += 1
+        cost = edges[(i, j)]
+        if not cost:
+            continue
+
+        for k in range(n):
+            if k not in (i, j) and dst[i][k] + dst[k][j] <= cost:
+                ans += 1
+                break
 print(ans)
