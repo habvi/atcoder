@@ -1,44 +1,48 @@
 import sys
 sys.setrecursionlimit(10**7)
 
-def root(x):
-    if rank[x] < 0: return x
-    rank[x] = root(rank[x])
-    return rank[x]
-def unite(x, y):
-    x, y = root(x), root(y)
-    if x == y: return False
-    if rank[x] > rank[y]: x, y = y, x
-    rank[x] += rank[y]
-    rank[y] = x
-    return True
-def is_same(x, y): return root(x) == root(y)
-def size(x): return -rank[root(x)]
+class UnionFind():
+    def __init__(self, n):
+        self.rank = [-1] * n
+        self.edge = [0] * n
+        self.unite_cnt = 0
+
+    def root(self, x):
+        if self.rank[x] < 0:
+            return x
+        self.rank[x] = self.root(self.rank[x])
+        return self.rank[x]
+
+    def unite(self, x, y):
+        x, y = self.root(x), self.root(y)
+        if x == y:
+            self.edge[x] += 1
+            return False
+        if self.rank[x] > self.rank[y]:
+            x, y = y, x
+        self.rank[x] += self.rank[y]
+        self.rank[y] = x
+        self.edge[x] += self.edge[y] + 1
+        self.unite_cnt += 1
+        return True
+
+    def is_same(self, x, y):
+        return self.root(x) == self.root(y)
+
+    def size(self, x):
+        return -self.rank[self.root(x)]
+
 
 n = int(input())
-c = 400001
-rank = [-1] * c
-seen = set()
-cnt = [0] * c
+m = 4 * 10**5
+
+uf = UnionFind(m)
 for _ in range(n):
     a, b = map(lambda x: int(x) - 1, input().split())
-    seen.add(a)
-    seen.add(b)
-    cnt[a] += 1
-    cnt[b] += 1
-    if not is_same(a, b):
-        unite(a, b)
-
-from collections import defaultdict
-par = defaultdict(list)
-for i, r in enumerate(rank):
-    if i in seen:
-        par[root(i)].append(i)
+    uf.unite(a, b)
 
 ans = 0
-for p, chs in par.items():
-    sm = 0
-    for ch in chs:
-        sm += cnt[ch]
-    ans += min(sm // 2, size(p))
+for i in range(m):
+    if uf.root(i) == i:
+        ans += min(uf.size(i), uf.edge[i])
 print(ans)
