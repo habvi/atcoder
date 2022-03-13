@@ -1,6 +1,8 @@
 from itertools import groupby
+
 n, K = map(int, input().split())
 s = input()
+
 a = []
 for k, g in groupby(s):
     a.append((k, len(list(g))))
