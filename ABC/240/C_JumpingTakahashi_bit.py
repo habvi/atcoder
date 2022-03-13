@@ -5,4 +5,4 @@ for _ in range(n):
     a, b = map(int, input().split())
     reach = reach << a | reach << b
 
-print('Yes' if 1 << x & reach else 'No')
+print('Yes' if reach >> x & 1 else 'No')
