@@ -1,36 +1,40 @@
 import sys
-sys.setrecursionlimit(10**7)
+sys.setrecursionlimit(10 ** 7)
+from collections import defaultdict
 
 def dfs(v):
+    global num_v, edge
     seen[v] = 1
-    # 頂点数
-    x[0] += 1
-    # 辺の数*2
-    y[0] += len(G[v])
-    for nv in G[v]:
-        if seen[nv]: continue
+    num_v += 1
+    edge += len(g[v])
+    for nv in g[v]:
+        if seen[nv]:
+            continue
         dfs(nv)
+
 
 n, m = map(int, input().split())
 MOD = 998244353
-G = [[] for _ in range(n)]
-for i in range(m):
-    a, b = map(int, input().split())
-    a, b = a-1, b-1
-    G[a].append(b)
-    G[b].append(a)
 
-seen = [0 for _ in range(n)]
-tot, ok = 0, 0
+g = defaultdict(list)
+for i in range(m):
+    a, b = map(lambda x: int(x) - 1, input().split())
+    g[a].append(b)
+    g[b].append(a)
+
+seen = [0] * n
+group = 0
 for i in range(n):
-    x, y = [0], [0]
-    if seen[i]: continue
+    if seen[i]:
+        continue
+
+    num_v = 0
+    edge = 0
     dfs(i)
-    tot += 1
-    if y[0]/2 == x[0]:
-        ok += 1
-    
-if ok == tot:
-    print(pow(2, tot, MOD))
-else:
-    print(0)
+
+    if edge / 2 != num_v:
+        print(0)
+        exit()
+    group += 1
+
+print(pow(2, group, MOD))
