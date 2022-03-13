@@ -1,5 +1,5 @@
 import sys
-sys.setrecursionlimit(10**7)
+sys.setrecursionlimit(10 ** 7)
 
 class UnionFind():
     def __init__(self, n):
@@ -27,20 +27,21 @@ class UnionFind():
     def set_size(self, x):
         return self.size[self.root(x)]
 
+
 n, m = map(int, input().split())
 MOD = 998244353
-UF = UnionFind(n)
+
+uf = UnionFind(n)
 for i in range(m):
-    u, v = map(int, input().split())
-    u, v = u-1, v-1
-    UF.unite(u, v)
+    u, v = map(lambda x: int(x) - 1, input().split())
+    uf.unite(u, v)
 
-roots = set()
+cycle = 0
 for i in range(n):
-    roots.add(UF.root(i))
+    if uf.root(i) == i:
+        if uf.edge[i] != uf.set_size(i):
+            print(0)
+            exit()
+        cycle += 1
 
-for r in roots:
-    if UF.edge[r] != UF.set_size(r):
-        print(0)
-        exit()
-print(pow(2, len(roots), MOD))
+print(pow(2, cycle, MOD))
