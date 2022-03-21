@@ -1,11 +1,13 @@
-s = input()
-if s[0] == 'A' and s[2 : len(s) - 1].count('C') == 1:
-    for t in s:
-        if t in 'AC':
+S = input()
+n = len(S)
+
+ans = True
+if (S[0] == 'A') and (S[2 : n - 1].count('C') == 1):
+    for s in S:
+        if s in 'AC':
             continue
-        if not t.islower():
-            print('WA')
-            exit()
-    print('AC')
+        ans &= (s.islower())
 else:
-    print('WA')
+    ans = False
+
+print('AC' if ans else 'WA')
