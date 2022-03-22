@@ -8,8 +8,7 @@ count_ = defaultdict(int)
 count_[0] = 1
 
 for s in S:
-    if s in WORD:
-        i = WORD.index(s)
+    if (i := WORD.find(s)) != -1:
         count_[i] += count_[i - 1]
         count_[i] %= MOD
 
