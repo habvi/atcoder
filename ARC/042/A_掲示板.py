@@ -1,13 +1,11 @@
 n, m = map(int, input().split())
-s = [i for i in range(n)]
+A = [int(input()) for _ in range(m)]
 
-mn = 0
-for _ in range(m):
-    a = int(input())
-    a -= 1
-    s[a] = mn - 1
-    mn = s[a]
+A = A[::-1]
+A.extend(range(1, n + 1))
 
-lis = sorted([(v, i) for i, v in enumerate(s)])
-for v, ans in lis:
-    print(ans + 1)
+done = set()
+for a in A:
+    if a not in done:
+        print(a)
+        done.add(a)
