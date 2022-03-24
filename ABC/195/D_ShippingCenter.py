@@ -1,18 +1,20 @@
-n, m, q = map(int, input().split())
+n, m, Q = map(int, input().split())
 wv = [tuple(map(int, input().split())) for _ in range(n)]
-wv.sort(key=lambda x: (-x[1], x[0]))
-
 X = list(map(int, input().split()))
-for _ in range(q):
+
+wv.sort(key=lambda x: (-x[1], -x[0]))
+
+for _ in range(Q):
     l, r = map(int, input().split())
-    A = [*X[:max(0, l - 1)], *X[r:]]
-    A.sort()
-    
-    used = set()
+    l -= 1
+    box = [*X[:l], *X[r:]]
+    box.sort()
+
     ans = 0
-    for a in A:
+    used = set()
+    for b in box:
         for i, (w, v) in enumerate(wv):
-            if i not in used and w <= a:
+            if i not in used and w <= b:
                 ans += v
                 used.add(i)
                 break
