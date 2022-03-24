@@ -2,20 +2,18 @@ n, K = map(int, input().split())
 V = list(map(int, input().split()))
 
 ans = 0
-for i in range(n + 1):
-    for j in range(n + 1):
-        l = i
-        r = n - j
-        if l > r or i + j > K:
+for l in range(n + 1):
+    for r in range(l, n + 1):
+        if l + n - r > K:
             continue
 
-        merge = [*V[:l], *V[r:]]
-        merge.sort(reverse=True)
+        mix = [*V[:l], *V[r:]]
+        mix.sort(reverse=True)
 
-        res = K - (i + j)
-        while merge and res > 0 and merge[-1] < 0:
-            merge.pop()
+        res = K - len(mix)
+        while res and mix and mix[-1] < 0:
+            mix.pop()
             res -= 1
 
-        ans = max(ans, sum(merge))
+        ans = max(ans, sum(mix))
 print(ans)
