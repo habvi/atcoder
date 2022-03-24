@@ -1,29 +1,34 @@
+def ceil(a, b):
+    return (a + b - 1) // b
+
+
 D, G = map(int, input().split())
-S = [tuple(map(int, input().split())) + ((i + 1)*100,) for i in range(D)]
+pc = [tuple(map(int, input().split())) for _ in range(D)]
+
 ans = float('inf')
-for i in range(1 << D):
-    tot_sc, tot_q = 0, 0
-    for j in range(D):
-        if i & (1<<j):
-            n, bns, sc = S[j]
-            tot_sc += sc*n + bns
-            tot_q += n
-    if tot_sc >= G:
-        ans = min(ans, tot_q)
+for bit in range(1 << D):
+    sum_p = 0
+    sum_q = 0
+    for i in range(D):
+        if bit >> i & 1:
+            q, bonus = pc[i]
+            sum_p += q * (i + 1) * 100 + bonus
+            sum_q += q
 
-    for j in range(D):
-        tot_sc2, tot_q2 = tot_sc, tot_q
-        if i & (1<<j):
-            n, bns, sc = S[j]
-            if tot_sc2 < G:
-                continue
+    if sum_p >= G:
+        ans = min(ans, sum_q)
+        continue
 
-            tot_sc2 -= bns + sc
-            tot_q2 -= 1
-            n -= 1
-            if tot_sc2 < G:
-                continue
+    for i in range(D):
+        sum_np = sum_p
+        sum_nq = sum_q
+        if not bit >> i & 1:
+            q, _ = pc[i]
+            res = G - sum_np
+            can = min(q - 1, ceil(res, (i + 1) * 100))
+            sum_np += can * (i + 1) * 100
+            sum_nq += can
 
-            tot_q2 -= min(n, (tot_sc2 - G) // sc)
-            ans = min(ans, tot_q2)
+            if sum_np >= G:
+                ans = min(ans, sum_nq)
 print(ans)
