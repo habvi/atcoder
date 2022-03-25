@@ -27,10 +27,8 @@ for ly in range(n):
                 s = (ry - ly + 1) * (rx - lx + 1)
                 mx[s] = max(mx[s], total)
 
-now = 0
-for i in range(max(mx) + 1):
-    mx[i] = max(mx[i], now)
-    now = max(now, mx[i])
+for i in range(1, max(mx) + 1):
+    mx[i] = max(mx[i], mx[i - 1])
 
 Q = int(input())
 for _ in range(Q):
