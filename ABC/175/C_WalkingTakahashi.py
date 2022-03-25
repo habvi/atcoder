@@ -1,13 +1,12 @@
-x, k, d = map(int, input().split())
-x = abs(x)
+X, K, D = map(int, input().split())
+X = abs(X)
 
-y = x - d * k
-if y >= 0:
-    print(y)
+if (d := K * D) <= X:
+    print(X - d)
     exit()
 
-div, mod = divmod(x, d)
-if k % 2 == div % 2:
-    print(mod)
+div, m = divmod(X, D)
+if (K - div) % 2 == 0:
+    print(m)
 else:
-    print(abs(mod - d))
+    print(abs(m - D))
