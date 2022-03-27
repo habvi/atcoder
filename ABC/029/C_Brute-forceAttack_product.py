@@ -1,3 +1,5 @@
 from itertools import product
-for pr in product('abc', repeat=int(input())):
+
+n = int(input())
+for pr in product('abc', repeat=n):
     print("".join(pr))
