@@ -1,14 +1,14 @@
 import sys
-sys.setrecursionlimit(10**7)
+sys.setrecursionlimit(10 ** 7)
 
-def dfs(s, mx):
+def solve(s, mx):
     if len(s) == n:
         print(s)
         return
-    for i in range(ord('a'), ord(mx) + 1):
-        if chr(i) == mx:
-            mx = chr(ord(mx) + 1)
-        dfs(s + chr(i), mx)
+
+    for i in range(mx + 1):
+        solve(s + chr(ord('a') + i), max(mx, i + 1))
+
 
 n = int(input())
-dfs("", 'a')
+solve('', 0)
