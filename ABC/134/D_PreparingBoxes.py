@@ -1,18 +1,15 @@
 n = int(input())
-a = [0]
-a.extend(list(map(int, input().split())))
-b = [0] * (n + 1)
-ans = []
-for i in range(n, 0, -1):
-    cnt = 0
-    for j in range(i, n + 1, i):
-        cnt += b[j]
-    
-    if cnt % 2 == a[i]:
-        b[i] = 0
-    else:
-        b[i] = 1
-        ans.append(i)
+A = list(map(int, input().split()))
 
-print(len(ans))
-print(*ans)
+B = [0] * n
+for i in reversed(range(1, n + 1)):
+    total = 0
+    for j in range(i, n + 1, i):
+        total += B[j - 1]
+
+    B[i - 1] = (total % 2 != A[i - 1]) * 1
+
+print(sum(B))
+for i in range(n):
+    if B[i]:
+        print(i + 1)
