@@ -1,19 +1,21 @@
-x, y, z, k = map(int, input().split())
-a = list(map(int, input().split()))
-b = list(map(int, input().split()))
-c = list(map(int, input().split()))
-a.sort()
-b.sort()
-lis = []
-for i in range(x):
-    for j in range(y):
-        lis.append(a[i] + b[j])
+X, Y, Z, K = map(int, input().split())
+A = list(map(int, input().split()))
+B = list(map(int, input().split()))
+C = list(map(int, input().split()))
 
-lis.sort(reverse=True)
-c.sort(reverse=True)
-ans = []
-for i in range(min(k, len(lis))):
-    for j in range(z):
-        ans.append(lis[i] + c[j])
-ans.sort(reverse=True)
-print(*ans[:k])
+A.sort()
+B.sort()
+
+ab = []
+for a in A:
+    for b in B:
+        ab.append(a + b)
+
+ab.sort(reverse=True)
+
+total = []
+for num in ab[:min(K, len(ab))]:
+    for c in C:
+        total.append(num + c)
+
+print(*sorted(total, reverse=True)[:K])
