@@ -1,25 +1,24 @@
 # PyPy only
 
-from collections import defaultdict
-import pypyjit
-pypyjit.set_param('max_unroll_recursion=-1')
 import sys
 sys.setrecursionlimit(10 ** 7)
+from collections import defaultdict
 
 def dfs(v, p):
-    if v == r:
+    if v == nxt:
         return True
+
     for nv, ni in g[v]:
         if nv == p:
             continue
         if dfs(nv, v):
-            seen[ni] += 1
+            edge[ni] += 1
             return True
     return False
 
 
 n, m, K = map(int, input().split())
-M = list(map(lambda x: int(x) - 1, input().split()))
+A = list(map(lambda x: int(x) - 1, input().split()))
 MOD = 998244353
 
 g = defaultdict(list)
@@ -28,26 +27,25 @@ for i in range(n - 1):
     g[a].append((b, i))
     g[b].append((a, i))
 
-seen = [0] * (n - 1)
+edge = [0] * (n - 1)
 for i in range(m - 1):
-    l, r = M[i], M[i + 1]
-    dfs(l, -1)
+    pre, nxt = A[i], A[i + 1]
+    dfs(pre, -1)
 
-sm = sum(seen)
-ksm = K + sm
-if ksm % 2 or ksm < 0 or ksm > sm * 2:
+total = sum(edge)
+kt = K + total
+if (total < K) or (kt % 2) or (kt < 0):
     print(0)
     exit()
 
-total = ksm // 2
+R = kt // 2
 
-dp = [0] * (total + 1)
+dp = [0] * (R + 1)
 dp[0] = 1
-
-for num in seen:
-    for i in reversed(range(total + 1)):
-        if i + num <= total:
+for num in edge:
+    for i in reversed(range(R + 1)):
+        if i + num <= R:
             dp[i + num] += dp[i]
             dp[i + num] %= MOD
 
-print(dp[total])
+print(dp[R])
