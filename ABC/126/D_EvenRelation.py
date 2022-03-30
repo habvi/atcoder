@@ -1,15 +1,17 @@
 from collections import defaultdict
 import sys
 sys.setrecursionlimit(10 ** 7)
+
 def dfs(v, p):
     for nv, nw in g[v]:
         if nv == p:
             continue
         if nw % 2 == 0:
-            c[nv] = c[v]
+            ans[nv] = ans[v]
         else:
-            c[nv] = 1 - c[v]
+            ans[nv] = 1 - ans[v]
         dfs(nv, v)
+
 
 n = int(input())
 g = defaultdict(list)
@@ -19,7 +21,8 @@ for _ in range(n - 1):
     g[u].append((v, w))
     g[v].append((u, w))
 
-c = [-1] * n
-c[0] = 0
+ans = [-1] * n
+ans[0] = 0
 dfs(0, -1)
-print(*c)
+
+print(*ans)
