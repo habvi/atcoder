@@ -1,16 +1,17 @@
 n = int(input())
-t = list(map(int, input().split()))
-mx = n * 1000 + 1
-dp = [0] * mx
-dp[0] = 1
-for i in range(n):
-    for j in range(mx - 1, -1, -1):
-        if j + t[i] < mx:
-            dp[j + t[i]] = dp[j + t[i]] | dp[j]
+T = list(map(int, input().split()))
 
-tot = sum(t)
+total = sum(T)
+dp = [0] * (total + 1)
+dp[0] = 1
+
+for t in T:
+    for i in reversed(range(total + 1)):
+        if i + t <= total:
+            dp[i + t] |= dp[i]
+
 ans = float('inf')
-for i in range(mx):
-    if dp[i]:
-        ans = min(ans, max(i, tot - i))
+for i, b in enumerate(dp):
+    if b:
+        ans = min(ans, max(i, total - i))
 print(ans)
