@@ -1,49 +1,51 @@
-from collections import defaultdict
-from collections import deque
+from collections import defaultdict, deque
+
 def bfs(sy, sx):
-    dst[sy][sx] = 0
-    q = deque([(sy, sx)])
+    dist[sy][sx] = 0
+    que = deque([(sy, sx)])
     used = set()
-    while q:
-        y, x = q.popleft()
+    while que:
+        y, x = que.popleft()
         if (y, x) == (gy, gx):
             return
 
-        d = dst[y][x]
+        d = dist[y][x]
         for dy, dx in zip((0, 1, 0, -1), (1, 0, -1, 0)):
             ny, nx = y + dy, x + dx
-            if not (0 <= ny < h and 0 <= nx < w):
+            if not (0 <= ny < h and 0 <= nx < w) or A[ny][nx] == '#':
                 continue
-            if a[ny][nx] == '#':
-                continue
-            if dst[ny][nx] == -1:
-                dst[ny][nx] = d + 1
-                q.append((ny, nx))
-        
-        al = a[y][x]
-        if al in 'SG.#' or al in used:
+            if dist[ny][nx] == -1:
+                dist[ny][nx] = d + 1
+                que.append((ny, nx))
+
+        a = A[y][x]
+        if a == '.' or a in used:
             continue
-        used.add(al)
-        for ny, nx in p[al]:
+        used.add(a)
+
+        for ny, nx in alph[a]:
             if (ny, nx) == (y, x):
                 continue
-            if dst[ny][nx] == -1:
-                dst[ny][nx] = d + 1
-                q.append((ny, nx))
+            if dist[ny][nx] == -1:
+                dist[ny][nx] = d + 1
+                que.append((ny, nx))
+
 
 h, w = map(int, input().split())
-a = [input() for _ in range(h)]
-p = defaultdict(list)
+A = [input() for _ in range(h)]
+
+alph = defaultdict(list)
 for i in range(h):
     for j in range(w):
-        b = a[i][j]
-        if b == 'S':
+        a = A[i][j]
+        if a == 'S':
             sy, sx = i, j
-        elif b == 'G':
+        elif a == 'G':
             gy, gx = i, j
-        elif b.islower():
-            p[b].append((i, j))
+        elif a.islower():
+            alph[a].append((i, j))
 
-dst = [[-1] * w for _ in range(h)]
+dist = [[-1] * w for _ in range(h)]
 bfs(sy, sx)
-print(dst[gy][gx])
+
+print(dist[gy][gx])
