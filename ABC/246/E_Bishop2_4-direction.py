@@ -1,40 +1,44 @@
 from collections import deque
 
-XY = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
+DXY = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
 
 def bfs(sy, sx):
     for dir in range(4):
-        dist[sy][sx][dir] = 0
+        dist[dir][sy][sx] = 0
 
     que = deque([])
-    for dir, (dy, dx) in enumerate(XY):
+    for dir, (dy, dx) in enumerate(DXY):
         ny, nx = sy + dy, sx + dx
         if not (0 <= ny < n and 0 <= nx < n) or S[ny][nx] == '#':
             continue
-        dist[ny][nx][dir] = 1
-        que.append((ny, nx, dir))
+        dist[dir][ny][nx] = 1
+        que.append((ny, nx, dir, 1))
 
     while que:
-        y, x, dir = que.popleft()
+        y, x, dir, c = que.popleft()
         if (y, x) == (gy, gx):
-            return
+            print(dist[dir][y][x])
+            exit()
 
-        d = dist[y][x][dir]
-        for ndir, (dy, dx) in enumerate(XY):
+        nc = dist[dir][y][x]
+        if c > nc:
+            continue
+
+        for ndir, (dy, dx) in enumerate(DXY):
             ny, nx = y + dy, x + dx
             if not (0 <= ny < n and 0 <= nx < n) or S[ny][nx] == '#':
                 continue
 
             if dir == ndir:
-                if dist[ny][nx][ndir] <= d:
+                if dist[ndir][ny][nx] <= nc:
                     continue
-                dist[ny][nx][ndir] = d
-                que.appendleft((ny, nx, ndir))
+                dist[ndir][ny][nx] = nc
+                que.appendleft((ny, nx, ndir, nc))
             else:
-                if dist[ny][nx][ndir] <= d + 1:
+                if dist[ndir][ny][nx] <= nc + 1:
                     continue
-                dist[ny][nx][ndir] = d + 1
-                que.append((ny, nx, ndir))
+                dist[ndir][ny][nx] = nc + 1
+                que.append((ny, nx, ndir, nc + 1))
  
 
 
@@ -44,8 +48,7 @@ gy, gx = map(lambda x: int(x) - 1, input().split())
 S = [input() for _ in range(n)]
 
 INF = float('inf')
-dist = [[[INF] * 4 for _ in range(n)] for _ in range(n)]
+dist = [[[INF] * n for _ in range(n)] for _ in range(4)]
 bfs(sy, sx)
 
-ans = min(dist[gy][gx])
-print(ans if ans != INF else -1)
+print(-1)
