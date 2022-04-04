@@ -1,33 +1,33 @@
-from collections import deque
+from collections import deque, defaultdict
+
 def bfs(u):
-    que = deque([])
-    que.append(u)
-    while que:
-        v = que.popleft()
-        for nv in G[v]:
-            if dst[nv] < dst[v] + 1: continue
-            if dst[nv] != INF:
-                if dst[nv] == dst[v] + 1:
-                    cnt[nv] += cnt[v]
-                    cnt[nv] %= MOD
-                continue
-            dst[nv] = dst[v] + 1
-            cnt[nv] = cnt[v]%MOD
-            que.append(nv)
+    dist = [-1] * n
+    dist[u] = 0
+    q = deque([u])
+    while q:
+        v = q.popleft()
+        for nv in g[v]:
+            if dist[nv] == -1:
+                dist[nv] = dist[v] + 1
+                route[nv] += route[v]
+                q.append(nv)
+            else:
+                if dist[nv] == dist[v] + 1:
+                    route[nv] += route[v]
+                    route[nv] %= MOD
+
 
 n, m = map(int, input().split())
-MOD = 10**9+7
-G = [[] for _ in range(n)]
-for _ in range(m):
-    a, b = map(int, input().split())
-    a, b = a-1, b-1
-    G[a].append(b)
-    G[b].append(a)
+MOD = 10**9 + 7
 
-INF = 10**10
-dst = [INF for _ in range(n)]
-dst[0] = 0
-cnt = [0]*n
-cnt[0] = 1
+g = defaultdict(list)
+for _ in range(m):
+    a, b = map(lambda x: int(x) - 1, input().split())
+    g[a].append(b)
+    g[b].append(a)
+
+route = [0] * n
+route[0] = 1
 bfs(0)
-print(cnt[n-1]%MOD)
+
+print(route[-1])
