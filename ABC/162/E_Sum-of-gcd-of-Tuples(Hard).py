@@ -1,13 +1,21 @@
-n, k = map(int, input().split())
+def exclude_duplicate_divisor(x):
+    div = [0] * (x + 1)
+    for i in reversed(range(1, x + 1)):
+        num = K // i
+        div[i] = pow(num, n, MOD)
+        for ex in range(i + i, x + 1, i):
+            div[i] -= div[ex]
+    return div
+
+
+n, K = map(int, input().split())
 MOD = 10**9 + 7
-cnt = [0] * (k + 1)
-for i in range(k, 0, -1):
-    cnt[i] = pow(k // i, n, MOD)
-    for j in range(i * 2, k + 1, i):
-        cnt[i] -= cnt[j]
+
+div = exclude_duplicate_divisor(K)
 
 ans = 0
-for i in range(k + 1):
-    ans += cnt[i] * i
+for i, num in enumerate(div):
+    ans += i * num
     ans %= MOD
+
 print(ans)
