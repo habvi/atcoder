@@ -1,13 +1,12 @@
 n = int(input())
-ab = []
-for _ in range(n):
-    a, b = map(int, input().split())
-    ab.append((a, b, a + b))
-ab.sort(key=lambda x : x[2], reverse=True)
-t, a = 0, 0
-for i in range(n):
-    if i % 2 == 0:
-        t += ab[i][0]
+ab = [tuple(map(int, input().split())) for _ in range(n)]
+
+ab.sort(key=lambda x: -sum(x))
+
+T, A = 0, 0
+for i, (a, b) in enumerate(ab):
+    if i % 2:
+        A += b
     else:
-        a += ab[i][1]
-print(t - a)
+        T += a
+print(T - A)
