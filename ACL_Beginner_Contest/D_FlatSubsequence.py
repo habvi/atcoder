@@ -34,17 +34,15 @@ class SegTree:
         return self.data[idx]
 
 
-
 n, K = map(int, input().split())
+A = [int(input()) for _ in range(n)]
 
-m = 3 * 10**5 + 5
-seg = SegTree(m, 0)
-for _ in range(n):
-    a = int(input())
-
+mx = max(A)
+seg = SegTree(mx + 1, 0)
+for a in A:
     l = max(0, a - K)
-    r = min(m - 1, a + K)
-    mx = seg.prod(l, r + 1)
-    seg.update(a, mx + 1)
+    r = min(mx, a + K)
+    pre = seg.prod(l, r + 1)
+    seg.update(a, pre + 1)
 
-print(seg.prod(0, m))
+print(seg.prod(0, mx + 1))
