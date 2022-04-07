@@ -1,5 +1,8 @@
+from bisect import bisect_left
+
 x = input()
 n = len(x)
+
 lis = []
 fin = False
 for fst in range(1, 10):
@@ -15,6 +18,5 @@ for fst in range(1, 10):
         fin = False
 lis.sort()
 
-from bisect import bisect_left
 bi = bisect_left(lis, int(x))
 print(lis[bi])
