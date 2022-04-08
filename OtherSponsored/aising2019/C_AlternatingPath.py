@@ -1,25 +1,31 @@
 import sys
 sys.setrecursionlimit(10 ** 7)
+
+DXY = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
 def dfs(y, x):
+    global black, white
     seen[y][x] = 1
-    if s[y][x] == "#": bl[0] += 1
-    else: wh[0] += 1
-    for dy, dx in zip((-1, 0, 1, 0), (0, 1, 0, -1)):
+    for dy, dx in DXY:
         ny, nx = y + dy, x + dx
-        if not (0 <= ny < h and 0 <= nx < w): continue
-        if seen[ny][nx]: continue
-        if s[ny][nx] == s[y][x]: continue
+        if not (0 <= ny < h and 0 <= nx < w) or seen[ny][nx]:
+            continue
+        if S[y][x] == S[ny][nx]:
+            continue
+        black += (S[ny][nx] == '#')
+        white += (S[ny][nx] == '.')
         dfs(ny, nx)
 
+
 h, w = map(int, input().split())
-s = [input() for _ in range(h)]
-bw = [[-1] * w for _ in range(h)]
-seen = [[0] * w for _ in range(h)]
+S = [input() for _ in range(h)]
+
 ans = 0
+seen = [[0] * w for _ in range(h)]
 for i in range(h):
     for j in range(w):
-        if seen[i][j]: continue
-        bl, wh = [0], [0]
-        dfs(i, j)
-        ans += bl[0] * wh[0]
+        if not seen[i][j] and S[i][j] == '#':
+            black, white = 1, 0
+            dfs(i, j)
+            ans += black * white
 print(ans)
