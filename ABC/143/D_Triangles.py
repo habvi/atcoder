@@ -1,13 +1,15 @@
-from bisect import bisect, bisect_left
+from bisect import bisect_left
+
 n = int(input())
 L = list(map(int, input().split()))
+
 L.sort()
 
-cnt = 0
+ans = 0
 for i in range(n):
-    for j in range(i+1,n):
-        l = j + 1
-        r = L[i] + L[j]
-        br = bisect_left(L, r)
-        cnt += br - l
-print(cnt)
+    for j in range(i + 1, n):
+        total = L[i] + L[j]
+        bi = bisect_left(L, total)
+        ans += bi - 1 - j
+
+print(ans)
