@@ -1,11 +1,14 @@
 n = int(input())
 S = input()
-st = []
-cnt = 0
+
+stack = []
+ans = n
 for s in S:
-    st.append(s)
-    if "".join(st[-3:]) == 'fox':
-        for _ in range(3):
-            st.pop()
-        cnt += 1
-print(n - cnt * 3)
+    if s == 'x' and ''.join(stack[-2:]) == 'fo':
+        stack.pop()
+        stack.pop()
+        ans -= 3
+    else:
+        stack.append(s)
+
+print(ans)
