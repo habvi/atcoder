@@ -11,7 +11,7 @@ for _ in range(Q):
     else:
         num = a[0]
         total = 0
-        while True:
+        while num > 0:
             x, c = que.popleft()
             mn = min(c, num)
             total += x * mn
@@ -19,7 +19,5 @@ for _ in range(Q):
             c -= mn
             if c != 0:
                 que.appendleft((x, c))
-                break
-            if num == 0:
                 break
         print(total)

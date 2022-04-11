@@ -17,9 +17,9 @@ for C in B:
     mn, mx = -1, -1
     for i, c in enumerate(C):
         if c == X:
-            mx = max(mx, i)
+            mx = i
         if c == Y:
-            mn = max(mn, i)
+            mn = i
 
         if c == X:
             if mn != -1:
