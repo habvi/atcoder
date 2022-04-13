@@ -3,19 +3,17 @@ A = list(map(int, input().split()))
 MOD = 10**9 + 7
 
 K = 60
-one = [0] * K
-zero = [0] * K
-for a in A:
-    for i in range(K):
-        if a >> i & 1:
-            one[i] += 1
-        else:
-            zero[i] += 1
-
-ans = 0
 exp = 1
+ans = 0
 for i in range(K):
-    ans += one[i] * zero[i] * exp
+    zero, one = 0, 0
+    for a in A:
+        if a >> i & 1:
+            one += 1
+        else:
+            zero += 1
+
+    ans += one * zero * exp
     ans %= MOD
 
     exp *= 2
