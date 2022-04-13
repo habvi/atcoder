@@ -1,11 +1,16 @@
 from bisect import bisect, bisect_left
+
 n = int(input())
-a = list(map(int, input().split()))
-b = list(map(int, input().split()))
-c = list(map(int, input().split()))
-a.sort()
-c.sort()
+A = list(map(int, input().split()))
+B = list(map(int, input().split()))
+C = list(map(int, input().split()))
+
+A.sort()
+C.sort()
+
 ans = 0
-for x in b:
-    ans += bisect_left(a, x) * (n - bisect(c, x))
+for b in B:
+    a = bisect_left(A, b)
+    c = bisect(C, b)
+    ans += a * (n - c)
 print(ans)
