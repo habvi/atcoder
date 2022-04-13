@@ -1,10 +1,9 @@
-def solve(h, w):
-    global total
+def calc_dist(h, w):
     dist = 0
-    for dx in range(w):
-        num = w - dx
-        dist += h * h * dx * num
-    total += dist
+    for dy in range(1, h + 1):
+        times = h - dy
+        dist += w * w * dy * times
+    return dist
 
 def comb_mod(n, r, MOD):
     n1, r = n + 1, min(r, n - r)
@@ -18,8 +17,6 @@ def comb_mod(n, r, MOD):
 n, m, K = map(int, input().split())
 MOD = 10**9 + 7
 
-total = 0
-solve(n, m)
-solve(m, n)
-times = comb_mod(n * m - 2, K - 2, MOD)
-print(total * times % MOD)
+total = calc_dist(n, m) + calc_dist(m, n)
+num = comb_mod(n * m - 2, K - 2, MOD)
+print(total * num % MOD)
