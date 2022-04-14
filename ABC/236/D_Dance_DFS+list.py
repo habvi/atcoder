@@ -1,6 +1,30 @@
 import sys
 sys.setrecursionlimit(10**7)
 
+def dfs(a):
+    global ans
+    if len(a) == n2:
+        xor = 0
+        for i in range(0, n2, 2):
+            xor ^= d[a[i]][a[i + 1]]
+        ans = max(ans, xor)
+        return
+
+    if len(a) % 2:
+        for i in range(n2):
+            if i not in a:
+                a.append(i)
+                dfs(a)
+                a.pop()
+    else:
+        for i in range(n2):
+            if i not in a:
+                a.append(i)
+                dfs(a)
+                break
+        a.pop()
+
+
 n = int(input())
 n2 = 2 * n
 
@@ -16,28 +40,6 @@ for i in range(n2):
         d[i][j] = A[k]
         k += 1
 
-def dfs(a):
-    if len(a) == n2:
-        xor = 0
-        for i in range(0, n2, 2):
-            xor ^= d[a[i]][a[i + 1]]
-        ans[0] = max(ans[0], xor)            
-        return
-    
-    if len(a) % 2:
-        for i in range(n2):
-            if i not in a:
-                a.append(i)
-                dfs(a)
-                a.pop()
-    else:
-        for i in range(n2):
-            if i not in a:
-                a.append(i)
-                dfs(a)
-                break
-        a.pop()
-                
-ans = [0]
+ans = 0
 dfs([])
-print(ans[0])
+print(ans)
