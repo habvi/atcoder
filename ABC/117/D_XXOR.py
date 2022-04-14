@@ -1,21 +1,21 @@
-n, k = map(int, input().split())
+n, K = map(int, input().split())
 A = list(map(int, input().split()))
 
-lenk = len(bin(k)) - 2
+mx = len(bin(K)) - 2
 
 zero = False
-ans = k
-for i in reversed(range(lenk)):
-    bit = 0
+x = K
+for i in reversed(range(mx)):
+    one = 0
     for a in A:
-        bit += a >> i & 1
-    
-    if bit > n // 2 and k >> i & 1:
-        ans ^= 1 << i
+        one += a >> i & 1
+
+    if one > n // 2 and K >> i & 1:
+        x ^= 1 << i
         zero = True
         continue
-    
-    if (bit <= n // 2) and (not k >> i & 1) and zero:
-        ans |= 1 << i
 
-print(sum(ans ^ a for a in A))
+    if (one <= n // 2) and (not K >> i & 1) and zero:
+        x |= 1 << i
+
+print(sum(x ^ a for a in A))
