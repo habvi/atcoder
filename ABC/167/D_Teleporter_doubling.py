@@ -1,20 +1,18 @@
-from math import log2
-
 n, K = map(int, input().split())
 A = list(map(lambda x: int(x) - 1, input().split()))
 
-m = int(log2(K)) + 1
+times = K.bit_length()
 
-doubling = [[0] * n for _ in range(m + 1)]
+doubling = [[0] * n for _ in range(times + 1)]
 for i, a in enumerate(A):
     doubling[0][i] = a
 
-for k in range(m):
+for k in range(times):
     for i in range(n):
         doubling[k + 1][i] = doubling[k][doubling[k][i]]
 
 now = 0
-for i in range(K.bit_length()):
-    if K >> i & 1:
-        now = doubling[i][now]
+for bit in range(times):
+    if K >> bit & 1:
+        now = doubling[bit][now]
 print(now + 1)
