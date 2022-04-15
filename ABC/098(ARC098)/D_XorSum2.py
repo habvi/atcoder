@@ -3,19 +3,18 @@ from collections import deque
 n = int(input())
 A = list(map(int, input().split()))
 
-qx = deque()
-qs = deque()
-ans = 0
+q = deque()
 xor, sigma = 0, 0
+ans = 0
 for a in A:
-    qx.append(a)
-    qs.append(a)
+    q.append(a)
     xor ^= a
     sigma += a
 
-    while qx and xor != sigma:
-        xor ^= qx.popleft()
-        sigma -= qs.popleft()
+    while q and xor != sigma:
+        rm = q.popleft()
+        xor ^= rm
+        sigma -= rm
 
-    ans += len(qx)
+    ans += len(q)
 print(ans)
