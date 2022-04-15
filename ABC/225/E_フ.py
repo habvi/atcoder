@@ -1,21 +1,24 @@
 from decimal import Decimal
+
+def declination(x, y):
+    if x > 1:
+        return (Decimal(y - 1) / x, Decimal(y) / (x - 1))
+    else:
+        return (Decimal(y - 1) / x, float('inf'))
+
+
 n = int(input())
 z = []
 for _ in range(n):
     x, y = map(int, input().split())
-    if x > 1:
-        a = Decimal(y) / (x - 1)
-    else:
-        a = float('inf')
-    z.append((Decimal(y - 1) / x, a))
+    z.append(declination(x, y))
 
 z.sort(key=lambda x : x[1])
 
 ans = 0
-ok = -1
-for i in range(n):
-    l, r = z[i]
-    if l >= ok:
+right = -1
+for l, r in z:
+    if right <= l:
         ans += 1
-        ok = r
+        right = r
 print(ans)
