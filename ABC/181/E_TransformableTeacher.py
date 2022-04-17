@@ -1,27 +1,28 @@
-from itertools import accumulate
 from bisect import bisect
+from itertools import accumulate
 
 n, m = map(int, input().split())
 H = list(map(int, input().split()))
 W = list(map(int, input().split()))
+
 H.sort()
-W.sort()
-
-ae = []
+even = [0]
 for i in range(0, n - 1, 2):
-    ae.append(abs(H[i] - H[i + 1]))
+    even.append(abs(H[i] - H[i + 1]))
 
-ao = []
+odd = [0]
 for i in range(1, n - 1, 2):
-    ao.append(abs(H[i] - H[i + 1]))
-    
-ac1 = [0] + list(accumulate(ae))
-ac2 = [0] + list(accumulate(ao))
+    odd.append(abs(H[i] - H[i + 1]))
+
+ac_e = list(accumulate(even))
+ac_o = list(accumulate(odd))
 
 ans = float('inf')
 for w in W:
-    bi = bisect(H, w)
-    bi = bi if bi % 2 == 0 else bi - 1
-    i = bi // 2
-    ans = min(ans, ac1[i] - ac1[0] + abs(H[bi] - w) + ac2[-1] - ac2[i])
+    i = bisect(H, w)
+    total = ac_e[i // 2] - ac_e[0] \
+            + ac_o[-1] - ac_o[i // 2] \
+            + (w - H[i - 1] if i % 2 else H[i] - w)
+
+    ans = min(ans, total)
 print(ans)
