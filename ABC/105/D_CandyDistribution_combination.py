@@ -14,7 +14,7 @@ for a in A[1:]:
 c = Counter(ac)
 
 ans = c[0]
-for k, v in c.items():
+for v in c.values():
     if v >= 2:
         ans += comb(v)
 print(ans)
