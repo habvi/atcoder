@@ -1,27 +1,26 @@
-from collections import defaultdict
 from bisect import bisect
+from collections import defaultdict
 
 S = input()
 T = input()
+n = len(S)
 
-if set(T) - set(S):
-    print(-1)
-    exit()
-
-g = defaultdict(list)
+d = defaultdict(list)
 for i, s in enumerate(S):
-    g[s].append(i)
+    d[s].append(i)
 
 now = -1
-count_ = 0
+ans = 0
 for t in T:
-    idx = bisect(g[t], now)
+    if not d[t]:
+        print(-1)
+        exit()
 
-    if idx == len(g[t]):
-        now = g[t][0]
-        count_ += 1
+    gt = bisect(d[t], now)
+    if gt == len(d[t]):
+        now = d[t][0]
+        ans += n
     else:
-        now = g[t][idx]
+        now = d[t][gt]
 
-ans = count_ * len(S) + now + 1
-print(ans)
+print(ans + now + 1)
