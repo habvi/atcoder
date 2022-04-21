@@ -1,52 +1,55 @@
-from collections import defaultdict, deque
+from collections import deque
 
 def bfs(u):
-    dst = [-1] * n
-    dst[u] = 0
-    q = deque([u])
-    while q:
-        v = q.popleft()
+    dist = [-1] * n
+    dist[u] = 0
+    que = deque([])
+    que.append(u)
+    while que:
+        v = que.popleft()
         for nv in g[v]:
-            if dst[nv] != -1:
+            if dist[nv] != -1:
                 continue
-            dst[nv] = dst[v] + 1
-            q.append(nv)
-    return dst
+            dist[nv] = dist[v] + 1
+            que.append(nv)
+    return dist
+
+def bfs2(u):
+    que = deque([])
+    que.append(u)
+    while que:
+        v = que.popleft()
+        for nv in g[v]:
+            if dist[v] < dist[nv]:
+                num[nv] += num[v]
+                que.append(nv)
+
 
 n = int(input())
-g = defaultdict(list)
+
+g = [[] for _ in range(n)]
 edge = []
 for _ in range(n - 1):
-    a, b  = map(lambda x: int(x) - 1, input().split())
+    a, b = map(lambda x: int(x) - 1, input().split())
     g[a].append(b)
     g[b].append(a)
     edge.append((a, b))
 
-dst = bfs(0)
+dist = bfs(0)
 
-q = int(input())
-cnt = [0] * n
-for _ in range(q):
+Q = int(input())
+num = [0] * n
+for _ in range(Q):
     t, e, x = map(int, input().split())
-    e -= 1
-    a, b = edge[e]
+    a, b = edge[e - 1]
     if t == 2:
         a, b = b, a
-    
-    if dst[a] < dst[b]:
-        cnt[0] += x
-        cnt[b] -= x
-    else:
-        cnt[a] += x
 
-def bfs2(u):
-    q = deque([u])
-    while q:
-        v = q.popleft()
-        for nv in g[v]:
-            if dst[nv] > dst[v]:
-                cnt[nv] += cnt[v]
-                q.append(nv)
+    if dist[a] < dist[b]:
+        num[0] += x
+        num[b] -= x
+    else:
+        num[a] += x
 
 bfs2(0)
-print(*cnt)
+print(*num)
