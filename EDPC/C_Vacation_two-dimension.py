@@ -11,5 +11,5 @@ for i in range(1, n):
             if j == k:
                 continue
             dp[j][i] = max(dp[j][i], dp[k][i - 1] + A[i][j])
-            
+
 print(max(dp[i][-1] for i in range(3)))
