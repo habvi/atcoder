@@ -129,7 +129,9 @@ class SortedSet(Generic[T]):
             ans += len(a)
         return ans
 
+
 L, q = map(int, input().split())
+
 s = SortedSet([0, L])
 for _ in range(q):
     c, x = map(int, input().split())
