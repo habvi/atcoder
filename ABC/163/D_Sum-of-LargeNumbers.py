@@ -1,18 +1,16 @@
 # https://atcoder.jp/contests/abc163/tasks/abc163_d
 
-def sigma_aln(a, l, n):
-    return n*(a + l) // 2
+def sigma_adn(a, d, n):
+    return (2*a + (n - 1)*d) * n // 2
 
 
-n, k = map(int, input().split())
+n, K = map(int, input().split())
 MOD = 10**9 + 7
 
 ans = 0
-for i in range(k, n + 2):
-    mini = sigma_aln(0, i - 1, i)
-    maxi = sigma_aln(n + 1 - i, n, i)
-
-    ans += maxi - mini + 1
+for num in range(K, n + 2):
+    l = sigma_adn(0, 1, num)
+    r = sigma_adn(n, -1, num)
+    ans += r - l + 1
     ans %= MOD
-
 print(ans)
