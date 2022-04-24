@@ -7,8 +7,8 @@
 ## 最終結果
 score : 21,544 (100 testcase)  
 ranking : 282 / 678 人  
-performance :  (水)  
-Rating : 846 ->  (緑)
+performance : 1356 (水)  
+Rating : 846 -> 1051 (緑)
 
 <br>
 
