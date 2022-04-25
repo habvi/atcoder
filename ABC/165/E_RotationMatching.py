@@ -1,10 +1,13 @@
+def ceil(a, b):
+    return (a + b - 1) // b
+
+
 n, m = map(int, input().split())
 
-a = (m + 1) // 2
-b = m - a
-for i in range(a):
-    print(a - i, a + i + 1)
-    
-for i in range(b):
-    s = a * 2 + b
-    print(s - i, s + i + 2)
+mid = ceil(m, 2)
+for i in range(mid):
+    print(mid - i, mid + i + 1)
+
+for i in range(m - mid):
+    st = mid * 2 + (m - mid) + 1
+    print(st - i - 1, st + i + 1)
