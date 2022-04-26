@@ -1,6 +1,5 @@
 from itertools import permutations
 
-
 S, K = input().split()
 K = int(K)
 
