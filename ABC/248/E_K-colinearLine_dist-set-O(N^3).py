@@ -22,6 +22,7 @@ for i in range(n):
             continue
         g[i].add(num)
         g[j].add(num)
+
         total = 2
         for k in range(n):
             if k in (i, j):
@@ -32,8 +33,7 @@ for i in range(n):
             if dist_line_to_point(x, y, x2, y2, x3, y3) == 0:
                 g[k].add(num)
                 total += 1
+
         num += 1
         ans += (total >= K)
-
 print(ans)
-
