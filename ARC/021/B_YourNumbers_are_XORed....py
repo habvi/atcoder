@@ -1,12 +1,14 @@
-l = int(input())
-b = [int(input()) for _ in range(l)]
-a = [0, b[0]]
+L = int(input())
+B = [int(input()) for _ in range(L)]
 
-for i in range(1, l):
-    a.append(a[-1] ^ b[i])
+ans = []
+now = 0
+for b in B:
+    ans.append(now)
+    now ^= b
 
-if a[0] == a[-1]:
-    for ans in a[:-1]:
-        print(ans)
+if ans[0] ^ ans[-1] == B[-1]:
+    for a in ans:
+        print(a)
 else:
     print(-1)
