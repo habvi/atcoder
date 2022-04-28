@@ -1,17 +1,17 @@
-def dfs(x):
+def make753(s):
     global ans
-    if x:
-        ans += (len(set(x)) >= 3 and int(x) <= n)
-        if len(x) == m:
+    if s:
+        if int(s) <= n:
+            ans += (len(set(s)) == 3)
+        else:
             return
 
-    for i in (3, 5, 7):
-        dfs(x + str(i))
+    for t in '753':
+        make753(s + t)
 
 
 n = int(input())
-m = len(str(n))
-ans = 0
-dfs('')
 
+ans = 0
+make753('')
 print(ans)
