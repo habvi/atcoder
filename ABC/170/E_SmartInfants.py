@@ -1,4 +1,5 @@
-# https://github.com/tatyam-prime/SortedSet/blob/main/SortedMultiset.py
+from collections import defaultdict
+# https://github.com/tatyam-prime/SortedMultiset/blob/main/SortedMultiset.py
 import math
 from bisect import bisect_left, bisect_right, insort
 from typing import Generic, Iterable, Iterator, TypeVar, Union, List
@@ -131,43 +132,41 @@ class SortedMultiset(Generic[T]):
         return ans
 
 
-from collections import defaultdict
 
-n, q = map(int, input().split())
+n, Q = map(int, input().split())
 
-school = defaultdict(int)
-rates = defaultdict(int)
-
-num = 2 * 10**5 + 1
-each = [SortedMultiset() for _ in range(num)]
-highest = SortedMultiset()
-
+rates = defaultdict()
+kinder = defaultdict()
+mx = 2 * 10**5
+each = [SortedMultiset() for _ in range(mx + 1)]
 for i in range(n):
-    a, b = map(int, input().split())
-    school[i] = b
-    rates[i] = a
-    each[b].add(a)
+    r, k = map(int, input().split())
+    k -= 1
+    rates[i] = r
+    kinder[i] = k
+    each[k].add(r)
 
-for i in range(num):
-    if each[i]:
-        highest.add(each[i][-1])
+highest = SortedMultiset()
+for lis in each:
+    if lis:
+        highest.add(lis[-1])
 
-for _ in range(q):
-    i, next_ = map(int, input().split())
-    i -= 1
+for _ in range(Q):
+    i, nxt = map(lambda x: int(x) - 1, input().split())
+
     rate = rates[i]
-    pre = school[i]
+    pre = kinder[i]
 
     highest.discard(each[pre][-1])
     each[pre].discard(rate)
     if each[pre]:
         highest.add(each[pre][-1])
 
-    if each[next_]:
-        highest.discard(each[next_][-1])
-    each[next_].add(rate)
-    highest.add(each[next_][-1])
+    kinder[i] = nxt
 
-    school[i] = next_
+    if each[nxt]:
+        highest.discard(each[nxt][-1])
+    each[nxt].add(rate)
+    highest.add(each[nxt][-1])
 
     print(highest[0])
