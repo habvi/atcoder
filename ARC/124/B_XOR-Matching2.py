@@ -2,19 +2,15 @@ n = int(input())
 A = list(map(int, input().split()))
 B = list(map(int, input().split()))
 
-S = set()
-for b in B:
-    S.add(A[0] ^ b)
+a0 = A[0]
+cand = set(a0 ^ b for b in B)
 
-B.sort()
 ans = []
-for s in S:
-    C = []
-    for a in A:
-        C.append(a ^ s)
+B.sort()
+for num in cand:
+    c = [a ^ num for a in A]
+    if sorted(c) == B:
+        ans.append(num)
 
-    if B == sorted(C):
-        ans.append(s)
-        
 print(len(ans))
 print(*sorted(ans))
