@@ -1,49 +1,47 @@
 h, w, n, m = map(int, input().split())
-S = [[0] * w for _ in range(h)]
 
-seen = [[0] * w for _ in range(h)]
-light = []
+# light : 1, block : -1
+g = [[0] * w for _ in range(h)]
 for _ in range(n):
     a, b = map(lambda x: int(x) - 1, input().split())
-    S[a][b] = 1
-    light.append((a, b))
+    g[a][b] = 1
 
 for _ in range(m):
     a, b = map(lambda x: int(x) - 1, input().split())
-    S[a][b] = '#'
+    g[a][b] = -1
 
 row = [[0] * w for _ in range(h)]
-for a, b in light:
-    if row[a][b]:
-        continue
-    row[a][b] = 1
+for i in range(h):
+    for j in range(w):
+        if g[i][j] <= 0 or row[i][j]:
+            continue
 
-    y, x = a, b
-    while y - 1 >= 0 and S[y - 1][x] != '#':
-        row[y - 1][x] = 1
-        y -= 1
-    y, x = a, b
-    while y + 1 < h and S[y + 1][x] != '#':
-        row[y + 1][x] = 1
-        y += 1
+        y, x = i, j
+        while x >= 0 and g[y][x] != -1:
+            row[y][x] = 1
+            x -= 1
+        y, x = i, j
+        while x < w and g[y][x] != -1:
+            row[y][x] = 1
+            x += 1
 
 col = [[0] * w for _ in range(h)]
-for a, b in light:
-    if col[a][b]:
-        continue
-    col[a][b] = 1
+for i in range(h):
+    for j in range(w):
+        if g[i][j] <= 0 or col[i][j]:
+            continue
 
-    y, x = a, b
-    while x - 1 >= 0 and S[y][x - 1] != '#':
-        col[y][x - 1] = 1
-        x -= 1
-    y, x = a, b
-    while x + 1 < w and S[y][x + 1] != '#':
-        col[y][x + 1] = 1
-        x += 1
+        y, x = i, j
+        while y >= 0 and g[y][x] != -1:
+            col[y][x] = 1
+            y -= 1
+        y, x = i, j
+        while y < h and g[y][x] != -1:
+            col[y][x] = 1
+            y += 1
 
 ans = 0
 for i in range(h):
     for j in range(w):
-        ans += (row[i][j] or col[i][j])
+        ans += (row[i][j] | col[i][j])
 print(ans)
