@@ -1,34 +1,38 @@
-n, k = map(int, input().split())
+from collections import defaultdict
+
+def find_loop(nxt_idx, start, step):
+    idx = defaultdict(lambda : -1)
+    route = []
+    now = start
+    num = []
+    for i in range(len(nxt_idx)):
+        idx[now] = i
+        route.append(now)
+        num.append(A[now])
+        now = nxt_idx[now]
+        if now in idx:
+            break
+
+    loop = idx[now]
+    if step < loop:
+        return route[step], sum(num[:step])
+
+    route = route[loop:]
+    total = sum(num[:loop])
+    num = num[loop:]
+    step -= loop
+    m = len(num)
+    total += step // m * sum(num) + sum(num[:step % m])
+
+    return route[step % len(route)], total
+
+
+n, K = map(int, input().split())
 A = list(map(int, input().split()))
 
-x = 0
-a = A[x]
+nxt = []
+for i, a in enumerate(A):
+    nxt.append((i + a) % n)
 
-s = set()
-idx = []
-num = []
-
-for _ in range(n):
-    if x in s:
-        break
-    s.add(x)
-    idx.append(x)
-
-    a = A[x]
-    x += a
-    x %= n
-    num.append(a)
-
-front = idx.index(x)
-
-if k <= front:
-    print(sum(num[:k]))
-    exit()
-
-total = sum(num[:front])
-num = num[front:]
-k -= front
-
-ln = len(num)
-total += k // ln * sum(num) + sum(num[:k % ln])
+idx, total = find_loop(nxt, 0, K)
 print(total)
