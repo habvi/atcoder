@@ -27,7 +27,7 @@ A = list(map(int, input().split()))
 rank = [-1] * (max(A) + 1)
 ans = 0
 for i in range(n // 2):
-    l, r = A[i], A[-i - 1]
+    l, r = A[i], A[~i]
     if not is_same(l, r):
         unite(l, r)
         ans += 1
