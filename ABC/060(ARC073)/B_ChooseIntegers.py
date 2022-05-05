@@ -1,10 +1,7 @@
 A, B, C = map(int, input().split())
 
-now = A
-for _ in range(B):
-    if now % B == C:
+for x in range(A, A * B + 1, A):
+    if x % B == C:
         print('YES')
         exit()
-    now += A
-
 print('NO')
