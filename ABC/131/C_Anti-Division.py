@@ -3,13 +3,15 @@ from math import gcd
 def lcm(a, b):
     return a * b // gcd(a, b)
 
+def f(x):
+    total = x
+    total -= x // c
+    total -= x // d
+    total += x // lcm_cd
+    return total
+
 
 a, b, c, d = map(int, input().split())
 
-total = b - a + 1
-total -= (b // c - (a - 1) // c)
-total -= (b // d - (a - 1) // d)
-
-x = lcm(c, d)
-total += (b // x - (a - 1) // x)
-print(total)
+lcm_cd = lcm(c, d)
+print(f(b) - f(a - 1))
