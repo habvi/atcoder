@@ -1,21 +1,18 @@
+def comb(n, r):
+    n1, r = n + 1, min(r, n - r)
+    nmrt = dnmnt = 1
+    for i in range(1, r + 1):
+        nmrt = nmrt * (n1 - i)
+        dnmnt = dnmnt * i
+    return nmrt // dnmnt
+
+
 L = int(input())
-L -= 1
-nmrt = 1
-dnmnt = 1
-for i in range(1, 12):
-    nmrt *= L
-    L -= 1
-    dnmnt *= i
-print(nmrt // dnmnt)
+
+L -= 12
+print(comb(L + 11, 11))
 
 
-
-# from math import factorial
-# def P(n, r):
-#     return factorial(n) // factorial(n - r)
-
-# def C(n,r):
-#     return P(n, r) // factorial(r)
 
 # L = int(input())
-# print(C(L - 1, 11))
+# print(comb(L - 1, 11))
