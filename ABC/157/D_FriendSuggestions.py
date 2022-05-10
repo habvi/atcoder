@@ -1,39 +1,42 @@
+from collections import defaultdict
 import sys
-sys.setrecursionlimit(10**7)
+sys.setrecursionlimit(10 ** 7)
 
 def root(x):
-    if rank[x] < 0: return x
+    if rank[x] < 0:
+       return x
     rank[x] = root(rank[x])
     return rank[x]
 def unite(x, y):
     x, y = root(x), root(y)
-    if x == y: return False
-    if rank[x] > rank[y]: x, y = y, x
+    if x == y:
+        return False
+    if rank[x] > rank[y]:
+        x, y = y, x
     rank[x] += rank[y]
     rank[y] = x
     return True
-def is_same(x, y): return root(x) == root(y)
-def size(x): return -rank[root(x)]
+def is_same(x, y):
+    return root(x) == root(y)
+def size(x):
+    return -rank[root(x)]
 
-n, m, k = map(int, input().split())
-G = [set() for _ in range(n)]
+
+n, m, K = map(int, input().split())
+
+g = defaultdict(list)
 rank = [-1] * n
 for _ in range(m):
-    a, b = map(int, input().split())
-    a, b = a - 1, b - 1
-    G[a].add(b)
-    G[b].add(a)
+    a, b = map(lambda x: int(x) - 1, input().split())
+    g[a].append(b)
+    g[b].append(a)
     unite(a, b)
 
-for _ in range(k):
-    c, d = map(int, input().split())
-    c, d = c - 1, d - 1
-    if is_same(c, d):
-        G[c].add(d)
-        G[d].add(c)
-        unite(c, d)
+for _ in range(K):
+    a, b = map(lambda x: int(x) - 1, input().split())
+    if is_same(a, b):
+        g[a].append(b)
+        g[b].append(a)
 
-ans = []
 for i in range(n):
-    ans.append(size(i) - len(G[i]) - 1)
-print(*ans)
+    print(size(i) - len(g[i]) - 1)
