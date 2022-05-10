@@ -1,20 +1,18 @@
-from collections import Counter
+from collections import defaultdict
 
 n = int(input())
 A = list(map(int, input().split()))
 
-R = [*range(400, 3201, 400), float('inf')]
-
-rate = Counter()
+num = defaultdict(int)
 for a in A:
-    for i, r in enumerate(R):
-        if a < r:
-            rate[i] += 1
-            break
+    if a >= 3200:
+        num[8] += 1
+    else:
+        num[a // 400] = 1
 
-num = len(rate)
-if not (over := rate[8]):
-    print(num, num)
+m = len(num)
+if not (free := num[8]):
+    print(m, m)
 else:
-    other = num - 1
-    print(max(1, other), other + over)
+    fixed = m - 1
+    print(max(1, fixed), fixed + free)

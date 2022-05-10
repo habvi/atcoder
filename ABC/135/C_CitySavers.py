@@ -1,15 +1,12 @@
 n = int(input())
-a = list(map(int, input().split()))
-b = list(map(int, input().split()))
+A = list(map(int, input().split()))
+B = list(map(int, input().split()))
+
 ans = 0
-for i in range(n):
-    for j in [i, i+1]:
-        if a[j] <= b[i]:
-            ans += a[j]
-            mn = a[j]
-        else:
-            ans += b[i]
-            mn = b[i]
-        a[j] -= mn
-        b[i] -= mn
+for i, b in enumerate(B):
+    for j in (i, i + 1):
+        minus = min(A[j], b)
+        A[j] -= minus
+        b -= minus
+        ans += minus
 print(ans)
