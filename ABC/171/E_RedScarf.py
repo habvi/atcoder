@@ -1,8 +1,10 @@
-n = int(input())
-a = list(map(int, input().split()))
-x = 0
-for i in a:
-    x ^= i
+from functools import reduce
+from operator import xor
 
-ans = [x ^ i for i in a]
+n = int(input())
+A = list(map(int, input().split()))
+
+ac = reduce(xor, A)
+
+ans = [ac ^ a for a in A]
 print(*ans)
