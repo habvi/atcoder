@@ -1,9 +1,9 @@
 def is_ok(x):
-    inc = 0
+    cut = 0
     for a in A:
         if a > x:
-            inc += a // x
-    return inc <= K
+            cut += a // x
+    return cut <= K
 
 def bisect(ng, ok):
     while abs(ok - ng) > 1:
@@ -18,5 +18,6 @@ def bisect(ng, ok):
 n, K = map(int, input().split())
 A = list(map(int, input().split()))
 
-ans = bisect(0, 10**9 + 1)
+mx = max(A)
+ans = bisect(0, mx + 1)
 print(ans)
