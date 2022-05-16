@@ -1,36 +1,27 @@
-def stoi(s):
-    return ord(s) - ord('a')
+from collections import Counter
 
-def itos(i):
-    return chr(i + ord('a'))
+def solve(w):
+    if n % w:
+        return
 
-def calc(x):
-    if n % x:
-        return n
-
-    alph = [[0] * 26 for _ in range(x)]
+    alph = [Counter() for _ in range(w)]
     for i, s in enumerate(S):
-        alph[i % x][stoi(s)] += 1
+        alph[i % w][s] += 1
 
-    mx = []
-    for al in alph:
-        i = al.index(max(al))
-        mx.append(itos(i))
+    mx = [al.most_common()[0][0] for al in alph]
 
     total = 0
     for i, s in enumerate(S):
-        if s != mx[i % x]:
-            total += 1
+        total += (s != mx[i % w])
+
     if total <= K:
-        return x
-    else:
-        return n
+        print(w)
+        exit()
+
 
 n, K = map(int, input().split())
 S = input()
 
 INF = float('inf')
-ans = n
 for i in range(1, n + 1):
-    ans = min(ans, calc(i))
-print(ans)
+    solve(i)
