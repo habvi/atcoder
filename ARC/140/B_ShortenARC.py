@@ -117,7 +117,7 @@ for i in range(total):
     else:
         tail = cand[-1]
         cand.discard(tail)
-        if tail >= 1:
-            cand.add(tail)
+        if tail > 1:
+            cand.add(tail - 1)
         ans += 1
 print(ans)
