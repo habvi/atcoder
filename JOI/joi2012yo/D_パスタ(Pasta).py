@@ -16,9 +16,7 @@ elif y >= 0:
         dp[y][i] = 1
 elif t >= 0:
     for i in range(3):
-        for j in range(3):
-            if j == t:
-                dp[i][j] = 1
+        dp[i][t] = 1
 else:
     dp = [[1] * 3 for _ in range(3)]
 
