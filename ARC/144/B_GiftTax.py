@@ -3,17 +3,14 @@ def ceil(a, b):
 
 def is_ok(x):
     plus = 0
-    B = []
     for a in A:
         if a < x:
-            times = ceil((x - a), p)
-            plus += times
-            B.append(a + p * times)
-        else:
-            B.append(a)
+            plus += ceil((x - a), P)
+
     minus = 0
-    for b in B:
-        minus += (b - x) // m
+    for a in A:
+        if a > x:
+            minus += (a - x) // M
     return plus <= minus
 
 def bisect(ng, ok):
@@ -26,7 +23,7 @@ def bisect(ng, ok):
     return ok
 
 
-n, p, m = map(int, input().split())
+n, P, M = map(int, input().split())
 A = list(map(int, input().split()))
 
 mx = max(A)
