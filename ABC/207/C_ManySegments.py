@@ -1,17 +1,17 @@
 n = int(input())
-a = []
+
+A = []
 for _ in range(n):
     t, l, r = map(int, input().split())
     if t in (2, 4):
         r -= 0.5
-    if t in (3, 4):
+    if t >= 3:
         l += 0.5
-    a.append((l, r))
-a.sort()
+    A.append((l, r))
 
+A.sort()
 ans = 0
 for i in range(n):
     for j in range(i + 1, n):
-        if a[j][0] <= a[i][1]:
-            ans += 1
+        ans += (A[i][1] >= A[j][0])
 print(ans)
