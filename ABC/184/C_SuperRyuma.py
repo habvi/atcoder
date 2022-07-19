@@ -1,15 +1,16 @@
-a, b = map(int, input().split())
-c, d = map(int, input().split())
-if (a, b) == (c, d):
+r1, c1 = map(int, input().split())
+r2, c2 = map(int, input().split())
+
+if (r1, c1) == (r2, c2):
     print(0)
-    exit()
-
-if a + b == c + d or a - b == c - d or abs(a - c) + abs(b - d) <= 3:
+elif (r1 + c1 == r2 + c2) or \
+        (r1 - c1 == r2 - c2) or \
+        (abs(r1 - r2) + abs(c1 - c2) <= 3):
     print(1)
-    exit()
-
-if a + b - 3 <= c + d <= a + b + 3 or a - b - 3 <= c - d <= a - b + 3 or abs(a - c) + abs(b - d) <= 6 or (abs(a - c) + abs(b - d)) % 2 == 0:
+elif (r1 + c1 - 3 <= r2 + c2 <= r1 + c1 + 3) or \
+        (r1 - c1 - 3 <= r2 - c2 <= r1 - c1 + 3) or \
+        (abs(r1 - r2) + abs(c1 - c2) <= 6) or \
+        ((abs(r1 - r2) + abs(c1 - c2)) % 2 == 0):
     print(2)
-    exit()
-
-print(3)
+else:
+    print(3)
