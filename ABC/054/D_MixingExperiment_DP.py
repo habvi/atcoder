@@ -2,7 +2,7 @@ from math import gcd
 
 n, ma, mb = map(int, input().split())
 
-m = 400
+m = n * 10
 INF = float('inf')
 dp = [[INF] * (m + 1) for _ in range(m + 1)]
 dp[0][0] = 0
