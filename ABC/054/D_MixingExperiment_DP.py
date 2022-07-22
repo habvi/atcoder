@@ -2,23 +2,23 @@ from math import gcd
 
 n, ma, mb = map(int, input().split())
 
-m = n * 10
+mx = n * 10
 INF = float('inf')
-dp = [[INF] * (m + 1) for _ in range(m + 1)]
+dp = [[INF] * (mx + 1) for _ in range(mx + 1)]
 dp[0][0] = 0
 
 for _ in range(n):
     a, b, c = map(int, input().split())
 
-    for i in reversed(range(m + 1)):
-        for j in reversed(range(m + 1)):
+    for i in reversed(range(mx + 1)):
+        for j in reversed(range(mx + 1)):
             ni, nj = i + a, j + b
-            if ni <= m and nj <= m:
+            if ni <= mx and nj <= mx:
                 dp[ni][nj] = min(dp[ni][nj], dp[i][j] + c)
 
 ans = INF
-for i in range(1, m + 1):
-    for j in range(1, m + 1):
+for i in range(1, mx + 1):
+    for j in range(1, mx + 1):
         g = gcd(i, j)
         ni = i // g
         nj = j // g
