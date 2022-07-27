@@ -1,33 +1,33 @@
-n, X, Y = map(int, input().split())
+def sep_list(A):
+    res = []
+    for a in A:
+        if Y <= a <= X:
+            res.append(a)
+        else:
+            if res:
+                yield res
+                res = []
+    if res:
+        yield res
+
+
+N, X, Y = map(int, input().split())
 A = list(map(int, input().split()))
 
-B = []
-new = []
-for a in A:
-    if Y <= a <= X:
-        new.append(a)
-    else:
-        B.append(new)
-        new = []
-if new:
-    B.append(new)
-
 ans = 0
-for C in B:
-    mn, mx = -1, -1
-    for i, c in enumerate(C):
-        if c == X:
-            mx = i
-        if c == Y:
-            mn = i
+for lis in sep_list(A):
+    nearest_mn = 0
+    nearest_mx = 0
+    for i, a in enumerate(lis):
+        if a == X:
+            nearest_mx = i + 1
+        if a == Y:
+            nearest_mn = i + 1
 
-        if c == X:
-            if mn != -1:
-                ans += mn + 1
-        elif c == Y:
-            if mx != -1:
-                ans += mx + 1
+        if a == X:
+            ans += nearest_mn
+        elif a == Y:
+            ans += nearest_mx
         else:
-            if mn != -1 and mx != -1:
-                ans += min(mn, mx) + 1
+            ans += min(nearest_mn, nearest_mx)
 print(ans)
