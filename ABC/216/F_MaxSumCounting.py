@@ -1,4 +1,4 @@
-n = int(input())
+N = int(input())
 A = list(map(int, input().split()))
 B = list(map(int, input().split()))
 MOD = 998244353
@@ -9,16 +9,18 @@ for a, b in zip(A, B):
 ab.sort()
 
 mx = max(A)
-dp = [1] * (mx + 1)
+dp = [0] * (mx + 1)
+dp[0] = 1
 ans = 0
 for a, b in ab:
-    if a >= b:
-        ans += dp[a - b]
-    for i in reversed(range(mx + 1)):
-        nxt = i + b
-        if nxt <= mx:
-            dp[nxt] += dp[i]
-            dp[nxt] %= MOD
-    ans %= MOD
-
+    ndp = [0] * (mx + 1)
+    for i in range(mx + 1):
+        ndp[i] = dp[i]
+        if i - b >= 0:
+            ndp[i] += dp[i - b]
+            ndp[i] %= MOD
+        if i <= a - b:
+            ans += dp[i]
+            ans %= MOD
+    dp = ndp
 print(ans)
