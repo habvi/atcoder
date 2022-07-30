@@ -4,12 +4,11 @@ if N < A:
     print(0)
     exit()
 
-ans = N - (A - 1)
+cand = N - (A - 1)
 if A <= B:
-    print(ans)
+    print(cand)
     exit()
 
-block = (N - (A - 1)) // A
-ans = B * block
-ans += min(B, (N - (A - 1)) % A)
+ans = B * (cand // A)
+ans += min(B, cand % A)
 print(ans)
