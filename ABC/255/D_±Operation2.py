@@ -1,25 +1,15 @@
 from bisect import bisect, bisect_left
 from itertools import accumulate
 
-n, Q = map(int, input().split())
+N, Q = map(int, input().split())
 A = list(map(int, input().split()))
 
 A.sort()
-ac = list(accumulate(A))
+ac_l = [0] + list(accumulate(A))
+ac_r = list(accumulate(A[::-1]))[::-1] + [0]
 
 for _ in range(Q):
     X = int(input())
-
-    left = bisect_left(A, X)
-    ans = X * left
-    if left - 1 >= 0:
-        ans -= ac[left - 1]
-
-    right = bisect(A, X)
-    num_r = n - right
-    if num_r > 0:
-        ans += ac[-1]
-        if right - 1 >= 0:
-            ans -= ac[right - 1]
-        ans -= X * num_r
-    print(ans)
+    l = bisect_left(A, X)
+    r = bisect(A, X)
+    print(X * l - ac_l[l] + ac_r[r] - X * (N - r))
