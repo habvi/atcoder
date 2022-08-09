@@ -1,18 +1,14 @@
-n = int(input())
-a = list(map(int, input().split()))
+N = int(input())
+A = list(map(int, input().split()))
+
 x = 0
-for i in range(n):
+for i, a in enumerate(A):
     if i % 2 == 0:
-        x += a[i]
+        x += a
     else:
-        x -= a[i]
+        x -= a
 
-ans = [0] * n
-ans[0] = x // 2
-for i in range(n - 1):
-    ans[i + 1] = a[i] - ans[i]
-
-for i in range(n):
-    ans[i] *= 2
-
-print(*ans)
+print(x, end=' ')
+for a in A[:-1]:
+    x = 2 * a - x
+    print(x, end=' ')
