@@ -1,14 +1,16 @@
+from collections import defaultdict
+
 s = int(input())
-a = [s]
-pre = s
-i = 0
+
+seen = defaultdict(int)
+i = 1
 while True:
-    if pre % 2 == 0:
-        pre = a[-1] // 2
+    seen[s] = 1
+    if s % 2:
+        s = 3 * s + 1
     else:
-        pre = 3 * a[-1] + 1
-    if pre in a:
-        break
-    a.append(pre)
+        s //= 2
     i += 1
-print(i + 2)
+    if seen[s]:
+        print(i)
+        exit()
