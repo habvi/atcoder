@@ -1,21 +1,16 @@
 from collections import defaultdict
 
-n, m = map(int, input().split())
+N, M = map(int, input().split())
 H = list(map(int, input().split()))
 
 g = defaultdict(list)
-for _ in range(m):
+for _ in range(M):
     a, b = map(lambda x: int(x) - 1, input().split())
-    g[a].append(b)
-    g[b].append(a)
+    g[a].append(H[b])
+    g[b].append(H[a])
 
 ans = 0
 for v, h in enumerate(H):
-    high = True
-    for nv in g[v]:
-        if h <= H[nv]:
-            high = False
-            break
-    ans += high
-
+    if not g[v] or max(g[v]) < h:
+        ans += 1
 print(ans)
