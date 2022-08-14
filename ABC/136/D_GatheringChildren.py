@@ -14,7 +14,6 @@ i = 0
 ans = [0] * n
 for lr, v in groupby(S):
     num = len(list(v))
-
     if lr == 'L':
         ans[i - 1] += floor(num)
         ans[i] += ceil(num)
@@ -22,6 +21,5 @@ for lr, v in groupby(S):
     else:
         i += num
         ans[i - 1] += ceil(num)
-        ans[i] += floor(num) 
-
+        ans[i] += floor(num)
 print(*ans)
