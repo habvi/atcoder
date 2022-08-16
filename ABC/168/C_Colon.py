@@ -1,6 +1,11 @@
-import math
-a, b, h, m = map(int, input().split())
-tn = h * 360 // 12 + m * 30 / 60
-ch = 360 // 60 * m
-d = abs(tn - ch)
-print((a**2 + b**2 - 2*a*b*math.cos(math.radians(d))) ** 0.5)
+from math import cos, radians
+
+def law_of_cos(a, b, angle):
+    return (a**2 + b**2 - 2*a*b*cos(radians(angle))) ** 0.5
+
+
+A, B, H, M = map(int, input().split())
+
+long = 360 // 12 * H + 360 / 12 / 60 * M
+short = 360 // 60 * M
+print(law_of_cos(A, B, long - short))
