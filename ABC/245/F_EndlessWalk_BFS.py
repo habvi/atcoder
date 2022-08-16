@@ -1,6 +1,6 @@
-from collections import deque, defaultdict
 import sys
 sys.setrecursionlimit(10 ** 7)
+from collections import defaultdict, deque
 
 def make_scc(g, rg):
     def dfs1(v):
@@ -20,13 +20,13 @@ def make_scc(g, rg):
             dfs2(nv)
 
     route = []
-    seen1 = [0] * n
-    for v in range(n):
+    seen1 = [0] * N
+    for v in range(N):
         if seen1[v]:
             continue
         dfs1(v)
 
-    seen2 = [0] * n
+    seen2 = [0] * N
     scc = []
     for v in route[::-1]:
         if seen2[v]:
@@ -34,41 +34,38 @@ def make_scc(g, rg):
         scc_each = []
         dfs2(v)
         scc.append(scc_each)
-
     return scc
 
-
 def bfs(u):
-    q = deque([u])
-    while q:
-        v = q.popleft()
+    que = deque([])
+    que.append(u)
+    while que:
+        v = que.popleft()
         for nv in rg[v]:
             if seen[nv]:
                 continue
             seen[nv] = 1
-            q.append(nv)
+            que.append(nv)
 
 
-n, m = map(int, input().split())
+N, M = map(int, input().split())
+
 g = defaultdict(list)
 rg = defaultdict(list)
-for _ in range(m):
+for _ in range(M):
     a, b = map(lambda x: int(x) - 1, input().split())
     g[a].append(b)
     rg[b].append(a)
 
-cycle = []
 scc = make_scc(g, rg)
-for v in scc:
-    if len(v) == 1:
-        continue
-    cycle.extend(v)
 
-seen = [0] * n
-for v in cycle:
+seen = [0] * N
+for vs in scc:
+    if len(vs) == 1:
+        continue
+    v = vs[0]
     if seen[v]:
         continue
     seen[v] = 1
     bfs(v)
-
 print(sum(seen))
