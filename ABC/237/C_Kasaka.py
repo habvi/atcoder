@@ -1,25 +1,22 @@
 S = list(input())
+n = len(S)
 
-if S == S[::-1]:
-    print('Yes')
-    exit()
-
-front = 0
-for s in S:
-    if s == 'a':
-        front += 1
-    else:
-        break
+head = 0
+while head < n and S[head] == 'a':
+    head += 1
 
 tail = 0
 while S and S[-1] == 'a':
     S.pop()
     tail += 1
 
-if front > tail:
-    print('No')
+if not S:
+    print("Yes")
     exit()
 
-S = S[front:]
+if head > tail:
+    print("No")
+    exit()
 
-print('Yes' if S == S[::-1] else 'No')
+S = S[head:]
+print("Yes" if S == S[::-1] else "No")
