@@ -1,9 +1,12 @@
-n, k = map(int, input().split())
-A = sorted([tuple(map(int, input().split())) for _ in range(n)])
+N, K = map(int, input().split())
 
-num = []
-for i in range(n):
-    k -= A[i][1]
-    if k <= 0:
-        print(A[i][0])
+ab = [tuple(map(int, input().split())) for _ in range(N)]
+ab.sort(reverse=True)
+
+total = 0
+while True:
+    a, b = ab.pop()
+    total += b
+    if total >= K:
+        print(a)
         exit()
