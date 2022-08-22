@@ -1,28 +1,34 @@
 from collections import deque
+
+DXY = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
 def bfs(sy, sx):
-    dst[sy][sx] = 0
+    dist = [[-1] * W for _ in range(H)]
+    dist[sy][sx] = 1
     que = deque([])
-    que.append([sy, sx])
+    que.append((sy, sx))
     while que:
         y, x = que.popleft()
-        for dy, dx in zip([0,1,0,-1], [1,0,-1,0]):
-            ny, nx = y+dy, x+dx
-            if (not 0 <= ny < h) or (not 0 <= nx < w): continue
-            if s[ny][nx] == '#': continue
-            if dst[ny][nx] != -1: continue
-            dst[ny][nx] = dst[y][x] + 1
-            que.append([ny, nx])
+        for dy, dx in DXY:
+            ny, nx = y + dy, x + dx
+            if not (0 <= ny < H and 0 <= nx < W) or S[ny][nx] == '#':
+                continue
+            if dist[ny][nx] != -1:
+                continue
+            dist[ny][nx] = dist[y][x] + 1
+            que.append((ny, nx))
+    return dist
 
-h, w = map(int, input().split())
-s = [input() for _ in range(h)]
-dst = [[-1]*w for _ in range(h)]
-bfs(0, 0)
 
-if dst[h - 1][w - 1] == -1:
+H, W = map(int, input().split())
+S = [input() for _ in range(H)]
+
+dist = bfs(0, 0)
+if dist[-1][-1] == -1:
     print(-1)
     exit()
 
-bl = 0
-for b in s:
-    bl += b.count('#')
-print(h * w - bl - dst[h - 1][w - 1] - 1)
+black = 0
+for s in S:
+    black += s.count('#')
+print(H * W - black - dist[-1][-1])
