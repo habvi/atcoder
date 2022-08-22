@@ -1,51 +1,49 @@
 from collections import defaultdict, deque
 
+DXY = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
 def bfs(sy, sx):
+    dist = [[-1] * W for _ in range(H)]
     dist[sy][sx] = 0
-    que = deque([(sy, sx)])
+    que = deque([])
+    que.append((sy, sx))
     used = set()
     while que:
         y, x = que.popleft()
-        if (y, x) == (gy, gx):
-            return
-
-        d = dist[y][x]
-        for dy, dx in zip((0, 1, 0, -1), (1, 0, -1, 0)):
+        for dy, dx in DXY:
             ny, nx = y + dy, x + dx
-            if not (0 <= ny < h and 0 <= nx < w) or A[ny][nx] == '#':
+            if not (0 <= ny < H and 0 <= nx < W) or S[ny][nx] == '#':
                 continue
-            if dist[ny][nx] == -1:
-                dist[ny][nx] = d + 1
-                que.append((ny, nx))
-
-        a = A[y][x]
-        if a == '.' or a in used:
-            continue
-        used.add(a)
-
-        for ny, nx in alph[a]:
-            if (ny, nx) == (y, x):
+            if dist[ny][nx] != -1:
                 continue
-            if dist[ny][nx] == -1:
-                dist[ny][nx] = d + 1
+            dist[ny][nx] = dist[y][x] + 1
+            que.append((ny, nx))
+
+        nxt = S[y][x]
+        if nxt not in "SG.":
+            if nxt in used:
+                continue
+            for ny, nx in alph[nxt]:
+                if dist[ny][nx] != -1:
+                    continue
+                dist[ny][nx] = dist[y][x] + 1
                 que.append((ny, nx))
+            used.add(nxt)
+    return dist
 
 
-h, w = map(int, input().split())
-A = [input() for _ in range(h)]
+H, W = map(int, input().split())
+S = [input() for _ in range(H)]
 
 alph = defaultdict(list)
-for i in range(h):
-    for j in range(w):
-        a = A[i][j]
+for i in range(H):
+    for j in range(W):
+        a = S[i][j]
         if a == 'S':
             sy, sx = i, j
         elif a == 'G':
             gy, gx = i, j
-        elif a.islower():
+        elif a != '.':
             alph[a].append((i, j))
-
-dist = [[-1] * w for _ in range(h)]
-bfs(sy, sx)
-
+dist = bfs(sy, sx)
 print(dist[gy][gx])
