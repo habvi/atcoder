@@ -3,23 +3,22 @@ from collections import deque
 DXY = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
 def bfs(sy, sx):
+    INF = float('inf')
+    dist = [[INF] * W for _ in range(H)]
     dist[sy][sx] = 0
     que = deque([])
     que.append((sy, sx, 0))
-
     while que:
         y, x, c = que.popleft()
-        if (y, x) == (h - 1, w - 1):
-            print(dist[h - 1][w - 1])
-            exit()
+        if (y, x) == (H - 1, W - 1):
+            return dist[-1][-1]
 
         nc = dist[y][x]
-        if c > nc:
+        if nc < c:
             continue
-
         for dy, dx in DXY:
             ny, nx = y + dy, x + dx
-            if not (0 <= ny < h and 0 <= nx < w) or S[ny][nx] == '#':
+            if not (0 <= ny < H and 0 <= nx < W) or S[ny][nx] == '#':
                 continue
             if dist[ny][nx] <= nc:
                 continue
@@ -31,17 +30,17 @@ def bfs(sy, sx):
                 if abs(dy) + abs(dx) == 4 or (dy, dx) == (0, 0):
                     continue
                 ny, nx = y + dy, x + dx
-                if not (0 <= ny < h and 0 <= nx < w):
+                if not (0 <= ny < H and 0 <= nx < W):
                     continue
                 if dist[ny][nx] <= nc + 1:
                     continue
                 dist[ny][nx] = nc + 1
                 que.append((ny, nx, nc + 1))
+    return dist[-1][-1]
 
 
-h, w = map(int, input().split())
-S = [input() for _ in range(h)]
+H, W = map(int, input().split())
+S = [input() for _ in range(H)]
 
-INF = float('inf')
-dist = [[INF] * w for _ in range(h)]
-bfs(0, 0)
+ans = bfs(0, 0)
+print(ans)
