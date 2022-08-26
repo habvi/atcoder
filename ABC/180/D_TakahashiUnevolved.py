@@ -2,7 +2,7 @@ X, Y, A, B = map(int, input().split())
 
 x = X
 ans = 0
-while x * A < min(Y, X + B):
+while x * A < min(Y, X + B + 1):
     x *= A
     ans += 1
 
