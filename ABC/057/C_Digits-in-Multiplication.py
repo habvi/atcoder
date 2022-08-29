@@ -1,18 +1,22 @@
-def div_lis(x):
-    div = []
-    for i in range(1, int(x**0.5) + 1):
+def div_list(x):
+    div_l, div_r = [], []
+    i = 1
+    while i * i <= x:
         if x % i == 0:
-            div.append(i)
+            div_l.append(i)
+            if i != x // i:
+                div_r.append(x // i)
+        i += 1
+    div = div_l + div_r[::-1]
     return div
 
-def length(x):
-    return len(str(x))
+def F(a, b):
+    return max(len(str(a)), len(str(b)))
 
 
-n = int(input())
+N = int(input())
 
 ans = float('inf')
-for div in div_lis(n):
-    ans = min(ans, max(length(div), length(n // div)))
-
+for div in div_list(N):
+    ans = min(ans, F(div, N // div))
 print(ans)
