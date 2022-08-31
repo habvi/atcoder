@@ -1,8 +1,8 @@
 K, S = map(int, input().split())
 
 ans = 0
-for i in range(K + 1):
-    for j in range(K + 1):
-        ans += (0 <= S - i - j <= K)
-
+for x in range(K + 1):
+    for y in range(K + 1):
+        z = S - x - y
+        ans += (0 <= z <= K)
 print(ans)
