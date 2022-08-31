@@ -1,19 +1,13 @@
-def accumulate_mod(lis, MOD):
-    ac = [lis[0] % MOD]
-    for x in lis[1:]:
-        ac.append((ac[-1] + x) % MOD)
-    return ac
+from itertools import accumulate
 
-
-n = int(input())
+N = int(input())
 A = list(map(int, input().split()))
 MOD = 10**9 + 7
 
-ac = accumulate_mod(A, MOD)
-
+ac = list(accumulate(A))
 ans = 0
-total = ac[-1]
 for i, a in enumerate(A):
-    ans += a * (total - ac[i])
+    ans += a * (ac[-1] - ac[i])
     ans %= MOD
 print(ans)
+
