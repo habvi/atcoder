@@ -1,17 +1,15 @@
 from collections import Counter
 
-n = int(input())
+N = int(input())
 A = list(map(int, input().split()))
 
-mx = max(A)
-mul = [0] * (mx + 1)
-for a in set(A):
-    for i in range(a * 2, mx + 1, a):
-        mul[i] = 1
-
 c = Counter(A)
+mx = max(A)
+for a in set(A):
+    for i in range(2 * a, mx + 1, a):
+        c[i] = 0
 
 ans = 0
 for a in A:
-    ans += (mul[a] == 0 and c[a] == 1)
+    ans += (c[a] == 1)
 print(ans)
