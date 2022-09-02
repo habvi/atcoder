@@ -1,28 +1,28 @@
-from collections import deque, defaultdict
+from collections import defaultdict, deque
 
 def bfs(u):
+    dist = [[-1] * 3 for _ in range(N)]
     dist[u][0] = 0
-    q = deque([])
-    q.append((u, 0))
-    while q:
-        v, rem = q.popleft()
+    que = deque([])
+    que.append((u, 0))
+    while que:
+        v, mod = que.popleft()
+        nmod = (mod + 1) % 3
         for nv in g[v]:
-            nr = (rem + 1) % 3
-            if dist[nv][nr] != -1:
+            if dist[nv][nmod] != -1:
                 continue
-            dist[nv][nr] = dist[v][rem] + 1
-            q.append((nv, nr))
+            dist[nv][nmod] = dist[v][mod] + 1
+            que.append((nv, nmod))
+    return dist
 
 
-n, m = map(int, input().split())
+N, M = map(int, input().split())
 g = defaultdict(list)
-for _ in range(m):
+for i in range(M):
     a, b = map(lambda x: int(x) - 1, input().split())
     g[a].append(b)
 
 S, T = map(lambda x: int(x) - 1, input().split())
 
-dist = [[-1] * 3 for _ in range(n)]
-bfs(S)
-
+dist = bfs(S)
 print(dist[T][0] // 3)
