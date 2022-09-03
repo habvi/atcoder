@@ -144,9 +144,7 @@ for _ in range(M):
 s = SortedSet()
 costs = [0] * N
 for v in range(N):
-    total = 0
-    for nv in g[v]:
-        total += A[nv]
+    total = sum(A[nv] for nv in g[v])
     s.add((total, v))
     costs[v] = total
 
