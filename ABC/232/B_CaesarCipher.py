@@ -1,6 +1,7 @@
-s = input()
-t = input()
+S = input()
+T = input()
+
 ans = set()
-for a, b in zip(s, t):
-    ans.add((ord(a) - ord(b)) % 26)
-print('Yes' if len(ans) == 1 else 'No')
+for s, t in zip(S, T):
+    ans.add((ord(s) - ord(t)) % 26)
+print("Yes" if len(ans) == 1 else "No")
