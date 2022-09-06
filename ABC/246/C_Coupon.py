@@ -8,8 +8,9 @@ for i in range(n):
     if not K:
         break
 
-A.sort(reverse=True)
-
-for i in range(min(K, n)):
-    A[i] = 0
+A.sort()
+for _ in range(K):
+    if not A:
+        break
+    A.pop()
 print(sum(A))
