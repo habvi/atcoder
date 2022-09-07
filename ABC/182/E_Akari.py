@@ -5,7 +5,6 @@ g = [[0] * w for _ in range(h)]
 for _ in range(n):
     a, b = map(lambda x: int(x) - 1, input().split())
     g[a][b] = 1
-
 for _ in range(m):
     a, b = map(lambda x: int(x) - 1, input().split())
     g[a][b] = -1
