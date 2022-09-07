@@ -4,8 +4,8 @@ sys.setrecursionlimit(10 ** 7)
 class UnionFind():
     def __init__(self, n):
         self.parent = [i for i in range(n)]
-        self.size = [1]*n
-        self.edge = [0]*n
+        self.size = [1] * n
+        self.edge = [0] * n
     def root(self, x):
         if self.parent[x] == x:
             return x

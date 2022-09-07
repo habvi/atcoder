@@ -29,12 +29,10 @@ group = 0
 for i in range(n):
     if seen[i]:
         continue
-
     num_v = 0
     edge = 0
     bfs(i)
-
-    if edge / 2 != num_v:
+    if edge // 2 != num_v:
         print(0)
         exit()
     group += 1
