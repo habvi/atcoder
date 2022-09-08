@@ -1,15 +1,16 @@
-from itertools import product
-n = input()
-k = len(n)
-ans = float('inf')
-for pr in product((0, 1), repeat=k):
-    tot = 0
-    erase = 0
-    for i, p in enumerate(pr):
-        if p:
-           tot += int(n[i])
+S = input()
+
+n = len(S)
+INF = float('inf')
+ans = INF
+for bit in range(1, 1 << n):
+    total = 0
+    rm = 0
+    for i in range(n):
+        if bit >> i & 1:
+            total += int(S[i])
         else:
-            erase += 1
-    if tot % 3 == 0:
-        ans = min(ans, erase)
-print(ans if ans != k else -1)
+            rm += 1
+    if total % 3 == 0 and rm != n:
+        ans = min(ans, rm)
+print(ans if ans != INF else -1)
