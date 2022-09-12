@@ -29,8 +29,8 @@ fn main() {
             },
             [2] => {
                 match hq.pop() {
-                    Some(x) => println!("--- {}", -x),
-                    None => println!("--- {}", que.pop_front().unwrap()),
+                    Some(x) => println!("{}", -x),
+                    None => println!("{}", que.pop_front().unwrap()),
                 }
             },
             [3] => {
