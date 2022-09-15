@@ -1,42 +1,27 @@
-n = int(input())
-S = [input() for _ in range(n)]
+N = int(input())
+S = [input() for _ in range(N)]
 
-for i in range(n):
-    for j in range(n - 5):
-        row = 0
-        for k in range(6):
-            if S[i][j + k] == '#':
-                row += 1
-        if row >= 4:
-            print('Yes')
+for i in range(N):
+    for j in range(N - 5):
+        c = S[i][j:j + 6].count('.')
+        if c <= 2:
+            print("Yes")
             exit()
 
-for i in range(n - 5):
-    for j in range(n):
-        col = 0
-        for k in range(6):
-            if S[i + k][j] == '#':
-                col += 1
-        if col >= 4:
-            print('Yes')
+for s in zip(*S):
+    for i in range(N - 5):
+        c = s[i:i + 6].count('.')
+        if c <= 2:
+            print("Yes")
             exit()
 
-for i in range(n - 5):
-    for j in range(n - 5):
-        l = 0
+for i in range(N - 5):
+    for j in range(N - 5):
+        c1, c2 = 0, 0
         for k in range(6):
-            if S[i + k][j + k] == '#':
-                l += 1
-        if l >= 4:
-            print('Yes')
+            c1 += (S[i + k][j + k] == '.')
+            c2 += (S[i + k][j + 5 - k] == '.')
+        if c1 <= 2 or c2 <= 2:
+            print("Yes")
             exit()
-
-        r = 0
-        for k in range(6):
-            if S[i + k][j + 5 - k] == '#':
-                r += 1
-        if r >= 4:
-            print('Yes')
-            exit()
-
-print('No')
+print("No")

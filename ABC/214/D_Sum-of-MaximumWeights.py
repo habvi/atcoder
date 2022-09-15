@@ -22,13 +22,13 @@ def size(x):
 
 
 n = int(input())
-E = [tuple(map(int, input().split())) for _ in range(n - 1)]
-E.sort(key=lambda x: x[2])
+edges = [tuple(map(int, input().split())) for _ in range(n - 1)]
 
+edges.sort(key=lambda x: x[2])
 rank = [-1] * n
 ans = 0
-for u, v, w in E:
-    u, v = u - 1, v - 1
-    ans += size(u) * size(v) * w
-    unite(u, v)
+for a, b, w in edges:
+    a, b = a - 1, b - 1
+    ans += (size(a) * size(b) * w)
+    unite(a, b)
 print(ans)
