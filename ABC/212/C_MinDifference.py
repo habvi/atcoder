@@ -5,10 +5,8 @@ A = list(map(int, input().split()))
 B = list(map(int, input().split()))
 
 INF = float('inf')
-B.append(-INF)
-B.append(INF)
+B.extend([-INF, INF])
 B.sort()
-
 ans = INF
 for a in A:
     bi = bisect(B, a)
