@@ -1,13 +1,14 @@
 from bisect import bisect_left
 
-n = int(input())
+N = int(input())
 
 lis = [0]
-for _ in range(n):
+minus = 0
+for _ in range(N):
     c = int(input())
     if lis[-1] < c:
         lis.append(c)
+        minus += 1
     else:
         lis[bisect_left(lis, c)] = c
-
-print(n - len(lis) + 1)
+print(N - minus)

@@ -1,13 +1,11 @@
-n = int(input())
-ab = [tuple(map(int, input().split())) for _ in range(n)]
+N = int(input())
+ab = [tuple(map(int, input().split())) for _ in range(N)]
 
 ab.sort(key=lambda x: x[1])
-
-right = 0
-for a, r in ab:
-    if r - a < right:
-        print('No')
+now = 0
+for l, r in ab:
+    now += l
+    if now > r:
+        print("No")
         exit()
-    right += a
-
-print('Yes')
+print("Yes")

@@ -6,7 +6,6 @@ def bfs(sy, sx):
     dist[sy][sx] = 0
     que = deque([])
     que.append((sy, sx, 0))
-
     while que:
         y, x, c = que.popleft()
         if (y, x) == (gy, gx):
@@ -16,7 +15,6 @@ def bfs(sy, sx):
         nc = dist[y][x]
         if c > nc:
             continue
-
         for dy, dx in DXY:
             ny, nx = y + dy, x + dx
             if not (0 <= ny < h and 0 <= nx < w) or S[ny][nx] == '#':
@@ -47,5 +45,4 @@ S = [input() for _ in range(h)]
 INF = float('inf')
 dist = [[INF] * w for _ in range(h)]
 bfs(sy, sx)
-
 print(-1)

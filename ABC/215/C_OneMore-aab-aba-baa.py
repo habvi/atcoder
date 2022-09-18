@@ -3,5 +3,5 @@ from itertools import permutations
 S, K = input().split()
 K = int(K)
 
-lis = set(permutations(S))
-print(''.join(sorted(lis)[K - 1]))
+ans = sorted(set(permutations(S)))[K - 1]
+print(''.join(ans))
