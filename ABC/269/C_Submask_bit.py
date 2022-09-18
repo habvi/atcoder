@@ -1,12 +1,11 @@
 N = int(input())
 
-one = []
+one = 0
 k = N.bit_length()
 for i in range(k):
-    if N >> i & 1:
-        one.append(i)
+    one += (N >> i & 1)
 
-for bit in range(1 << len(one)):
+for bit in range(1 << one):
     ans = 0
     j = 0
     for i in range(k):
