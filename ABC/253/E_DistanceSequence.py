@@ -1,29 +1,21 @@
 from itertools import accumulate
 
-n, m, K = map(int, input().split())
+N, M, K = map(int, input().split())
 MOD = 998244353
 
-dp = [0] * (m + 1)
-for i in range(1, m + 1):
-    if i + K <= m:
-        dp[i + K] = 1
-    if i - K >= 1:
-        dp[i - K] = 1
+if K == 0:
+    print(pow(M, N, MOD))
+    exit()
 
-for _ in range(1, n):
-    ndp = [0] * (m + 1)
-    for num in range(1, m + 1):
-        if num - K >= 1:
-            ndp[1] += dp[num]
-            ndp[1] %= MOD
-            if K == 0:
-                continue
-            if num - K + 1 <= m:
-                ndp[num - K + 1] -= dp[num]
-                ndp[num - K + 1] %= MOD
-        if num + K <= m:
-            ndp[num + K] += dp[num]
-            ndp[num + K] %= MOD
+dp = list(range(M + 1))
+for _ in range(N - 1):
+    ndp = [0] * (M + 1)
+    for i in range(1, M + 1):
+        ndp[i] += dp[-1]
+        minus = dp[min(i + K - 1, M)]
+        if i - K >= 0:
+            minus -= dp[i - K]
+        ndp[i] -= minus
+        ndp[i] %= MOD
     dp = list(accumulate(ndp))
-
-print(sum(dp) % MOD)
+print(dp[-1] % MOD)
