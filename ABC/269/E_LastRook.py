@@ -10,7 +10,7 @@ def bisect1(l, r):
             r = mid
         else:
             l = mid
-    return l
+    return r - 1
 
 def bisect2(l, r):
     while abs(r - l) > 1:
@@ -20,7 +20,7 @@ def bisect2(l, r):
             r = mid
         else:
             l = mid
-    return l
+    return r - 1
 
 
 N = int(input())

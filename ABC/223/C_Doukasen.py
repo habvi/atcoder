@@ -8,14 +8,13 @@ for _ in range(n):
     ab.append((a, b))
 
 half = total / 2
-
-dist = 0
+ans = 0
 for a, b in ab:
-    sp = a / b
-    if half > sp:
-        half -= sp
-        dist += a
+    t = a / b
+    if t < half:
+        half -= t
+        ans += a
     else:
-        dist += half * b
-        print(dist)
-        exit()
+        ans += half * b
+        break
+print(ans)
