@@ -1,25 +1,23 @@
-def dfs(seen, xor):
+def dfs(xor, seen):
     global ans
-    if seen == (1 << n2) - 1:
+    if seen == (1 << 2 * N) - 1:
         ans = max(ans, xor)
         return
 
-    for first in range(n2):
-        if not seen >> first & 1:
-            seen |= 1 << first
+    for f in range(2 * N):
+        if not seen >> f & 1:
+            seen |= 1 << f
+            for s in range(f + 1, 2 * N):
+                if not seen >> s & 1:
+                    dfs(xor ^ A[f][s], seen | 1 << s)
             break
 
-    for second in range(n2):
-        if not seen >> second & 1:
-            dfs(seen | 1 << second, xor ^ A[first][second])
 
-
-n = int(input())
-n2 = n * 2
-A = [[0] * n2 for _ in range(n2)]
-
-for i in range(n2 - 1):
-    A[i][i + 1:] = map(int, input().split())
+N = int(input())
+A = []
+for i in range(2 * N - 1):
+    a = [*[0] * (i + 1), *map(int, input().split())]
+    A.append(a)
 
 ans = 0
 dfs(0, 0)
