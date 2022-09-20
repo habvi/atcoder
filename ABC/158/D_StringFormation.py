@@ -1,24 +1,19 @@
 from collections import deque
 
-S = deque(input())
+S = input()
+Q = int(input())
 
+d = deque(list(S))
 rev = 0
-for _ in range(int(input())):
-    t, *q = input().split()
+for _ in range(Q):
+    t, *fc = input().split()
     if t == '1':
         rev = 1 - rev
     else:
-        num, s = q
-        if num == '1':
-            if rev:
-                S.append(s)
-            else:
-                S.appendleft(s)
+        f, c = fc
+        if (not rev and f == '1') or (rev and f == '2'):
+            d.appendleft(c)
         else:
-            if rev:
-                S.appendleft(s)
-            else:
-                S.append(s)
-
-ans = ''.join(S)
+            d.append(c)
+ans = ''.join(d)
 print(ans[::-1] if rev else ans)

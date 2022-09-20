@@ -1,11 +1,9 @@
 N, M = map(int, input().split())
 A = set(map(int, input().split()))
 
-d = {}
-for num, match in zip(range(1, 10), (2, 5, 5, 4, 5, 6, 3, 7, 6)):
-    d[num] = match
+match = [None, 2, 5, 5, 4, 5, 6, 3, 7, 6]
 
-if (2 in A) and (3 in A):
+if (2 in A) and (3 in A) or (2 in A) and (5 in A):
     A.remove(2)
 if (3 in A) and (5 in A):
     A.remove(3)
@@ -17,6 +15,7 @@ dp = [-INF] * (N + 1)
 dp[0] = 0
 for a in sorted(A, reverse=True):
     for i in range(N + 1):
-        if i - d[a] >= 0:
-            dp[i] = max(dp[i], dp[i - d[a]] * 10 + a)
+        pre = i - match[a]
+        if pre >= 0:
+            dp[i] = max(dp[i], dp[pre] * 10 + a)
 print(dp[-1])

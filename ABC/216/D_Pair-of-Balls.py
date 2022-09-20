@@ -4,25 +4,24 @@ n, m = map(int, input().split())
 
 balls = []
 for _ in range(m):
-    k = int(input())
+    _ = int(input())
     A = list(map(int, input().split()))
     balls.append(A[::-1])
 
 selected = defaultdict(lambda : -1)
-
-check = list(range(m))
-while check:
-    i = check.pop()
+que = list(range(m))
+while que:
+    i = que.pop()
     ball = balls[i].pop()
 
     if selected[ball] == -1:
         selected[ball] = i
     else:
         if balls[i]:
-            check.append(i)
+            que.append(i)
         j = selected[ball]
         if balls[j]:
-            check.append(j)
+            que.append(j)
         del selected[ball]
 
 print('Yes' if not selected else 'No')
