@@ -1,4 +1,3 @@
-from collections import defaultdict
 # https://github.com/tatyam-prime/SortedMultiset/blob/main/SortedMultiset.py
 import math
 from bisect import bisect_left, bisect_right, insort
@@ -132,41 +131,37 @@ class SortedMultiset(Generic[T]):
         return ans
 
 
-
 n, Q = map(int, input().split())
 
-rates = defaultdict()
-kinder = defaultdict()
+rates = {}
+belong = {}
 mx = 2 * 10**5
 each = [SortedMultiset() for _ in range(mx + 1)]
 for i in range(n):
-    r, k = map(int, input().split())
-    k -= 1
+    r, b = map(int, input().split())
+    b -= 1
     rates[i] = r
-    kinder[i] = k
-    each[k].add(r)
+    belong[i] = b
+    each[b].add(r)
 
 highest = SortedMultiset()
-for lis in each:
-    if lis:
-        highest.add(lis[-1])
+for s in each:
+    if s:
+        highest.add(s[-1])
 
 for _ in range(Q):
     i, nxt = map(lambda x: int(x) - 1, input().split())
-
     rate = rates[i]
-    pre = kinder[i]
+    pre = belong[i]
+    belong[i] = nxt
 
     highest.discard(each[pre][-1])
     each[pre].discard(rate)
     if each[pre]:
         highest.add(each[pre][-1])
 
-    kinder[i] = nxt
-
     if each[nxt]:
         highest.discard(each[nxt][-1])
     each[nxt].add(rate)
     highest.add(each[nxt][-1])
-
     print(highest[0])
