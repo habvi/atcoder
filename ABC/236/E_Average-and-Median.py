@@ -21,13 +21,14 @@ def bisect1(ng, ok):
     return ok
 
 def is_ok2(x):
-    B = [1 if a >= x else 0 for a in A]
-    one = sum(B)
-    zero = 0
-    for k, v in groupby(B):
-        if k == 0:
-            zero += len(list(v)) // 2
-    return zero < one
+    large, small = 0, 0
+    for k, v in groupby([(a >= x) * 1 for a in A]):
+        v = len(list(v))
+        if k:
+            large += v
+        else:
+            small += v // 2
+    return small < large
 
 def bisect2(ng, ok):
     while abs(ok - ng) > 1:
