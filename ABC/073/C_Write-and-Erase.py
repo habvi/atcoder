@@ -1,25 +1,22 @@
-from collections import defaultdict
+N = int(input())
 
-n = int(input())
-num = defaultdict(int)
-for _ in range(n):
+s = set()
+for _ in range(N):
     a = int(input())
-    if a in num:
-        del num[a]
+    if a in s:
+        s.remove(a)
     else:
-        num[a] += 1
-
-print(len(num))
-
+        s.add(a)
+print(len(s))
 
 
+# --------------------------------
 # from collections import Counter
 
 # n = int(input())
 # A = [int(input()) for _ in range(n)]
 
 # ans = 0
-# for _, v in Counter(A).items():
-#     if v % 2:
-#         ans += 1
+# for v in Counter(A).values():
+#     ans += (v % 2)
 # print(ans)
