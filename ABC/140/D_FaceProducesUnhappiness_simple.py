@@ -4,19 +4,17 @@ n, k = map(int, input().split())
 S = input()
 
 T = []
-for i, (s, num) in enumerate(groupby(S)):
+for i, (s, v) in enumerate(groupby(S)):
+    v = len(list(v))
     if i % 2 and k:
-        lr = ('L' if s == 'R' else 'R')
+        s = ('L' if s == 'R' else 'R')
         k -= 1
-    else:
-        lr = s
-    T.append(lr * len(list(num)))
+    T.append(s * v)
 
 ans = 0
-for _, num in groupby(''.join(T)):
-    ans += len(list(num)) - 1
+for _, v in groupby(''.join(T)):
+    ans += len(list(v)) - 1
 print(ans)
-
 
 
 # from itertools import groupby
