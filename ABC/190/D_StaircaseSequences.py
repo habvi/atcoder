@@ -18,3 +18,16 @@ for d in div_lis(n2):
     if d % 2 != n2 // d % 2:
         ans += 1
 print(ans)
+
+
+
+# ---------------------
+'''
+n * (a + l) // 2 == N
+'''
+# N *= 2
+# ans = 0
+# for x in div_list(N):
+#     y = N // x
+#     ans += (y - (x - 1)) % 2 == 0
+# print(ans)
