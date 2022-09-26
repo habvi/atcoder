@@ -1,29 +1,20 @@
-from itertools import accumulate
-
-def gen_mn(LR):
-    ac_mn = []
-    mn = 0
-    mn_idx = 0
-    for i, (a, lr) in enumerate(zip(ac, LR)):
-        now = lr - a
-        if now < mn:
-            mn = now
-            mn_idx = i
-        ac_mn.append(LR[mn_idx] + ac[i] - ac[mn_idx])
-    return ac_mn
+def calc(x, A):
+    res = [0]
+    for i, a in enumerate(A):
+        if x * (i + 1) < res[-1] + a:
+            res.append(x * (i + 1))
+        else:
+            res.append(res[-1] + a)
+    return res
 
 
 N, L, R = map(int, input().split())
 A = list(map(int, input().split()))
 
-ac = list(accumulate(A))
-l_mn = [0] + gen_mn(list(accumulate([L] * N)))
+left = calc(L, A)
+right = calc(R, A[::-1])[::-1]
 
-ac = list(accumulate(A[::-1]))
-r_mn = gen_mn(list(accumulate([R] * N)))
-r_mn = r_mn[::-1] + [0]
-
-ans = ac[-1]
-for l, r in zip(l_mn, r_mn):
+ans = float('inf')
+for l, r in zip(left, right):
     ans = min(ans, l + r)
 print(ans)
