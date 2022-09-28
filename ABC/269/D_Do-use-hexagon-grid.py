@@ -30,11 +30,7 @@ for i in range(N):
     for j in range(i + 1, N):
         x1, y1 = xy[i]
         x2, y2 = xy[j]
-        for di, dj in DXY:
-            ni, nj = x1 + di, y1 + dj
-            if (ni, nj) == (x2, y2):
+        for dx, dy in DXY:
+            if (x1 + dx, y1 + dy) == (x2, y2):
                 unite(i, j)
-ans = 0
-for r in rank:
-    ans += (r < 0)
-print(ans)
+print(sum(x < 0 for x in rank))

@@ -1,30 +1,29 @@
-def stoi(s):
-    return ord(s) - ord('A')
+def ctoi(c):
+    return ord(c) - ord('A')
 
 
-n = int(input())
+N = int(input())
 S = input()
 MOD = 998244353
 m = 10
 
-ndp = [[0] * m for _ in range(1 << m)]
-for s in S:
-    si = stoi(s)
-    dp = [l[:] for l in ndp]
-    ndp[1 << si][si] += 1
-
-    for pre in range(1 << m):
+dp = [[0] * (1 << m) for _ in range(m)]
+for c in S:
+    ci = ctoi(c)
+    for pre in reversed(range(1 << m)):
         for last in range(m):
-            if si == last:
-                ndp[pre][last] += dp[pre][last]
-                ndp[pre][last] %= MOD
+            if ci == last:
+                dp[last][pre] += dp[last][pre]
+                dp[last][pre] %= MOD
             else:
-                if not pre >> si & 1:
-                    ndp[pre | 1 << si][si] += dp[pre][last]
-                    ndp[pre | 1 << si][si] %= MOD
-
+                if pre >> ci & 1:
+                    continue
+                nxt = pre | 1 << ci
+                dp[ci][nxt] += dp[last][pre]
+                dp[ci][nxt] %= MOD
+    dp[ci][1 << ci] += 1
 ans = 0
-for l in ndp:
-    ans += sum(l)
+for d in dp:
+    ans += sum(d)
     ans %= MOD
 print(ans)
