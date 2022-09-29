@@ -2,11 +2,10 @@ def sigma_al(a, l):
     return ((a + l) * (l - a + 1)) // 2
 
 def is_ok(x):
-    num = 0
+    total = 0
     for a in A:
-        if a >= x:
-            num += (a - x + 1)
-    return num <= K
+        total += max(0, a - x + 1)
+    return total <= K
 
 def bisect(ng, ok):
     while abs(ok - ng) > 1:
@@ -22,15 +21,14 @@ n, K = map(int, input().split())
 A = list(map(int, input().split()))
 
 K = min(K, sum(A))
-bi = bisect(-1, max(A) + 1)
+mx = max(A)
+border = bisect(-1, mx + 1)
 
 ans = 0
-num = 0
 for a in A:
-    if a >= bi:
-        ans += sigma_al(bi, a)
-        num += (a - bi + 1)
-
-if K > num:
-    ans += (bi - 1) * (K - num)
+    if a >= border:
+        num = a - border + 1
+        ans += sigma_al(border, a)
+        K -= num
+ans += (border - 1) * K
 print(ans)

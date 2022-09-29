@@ -1,8 +1,9 @@
-n = int(input())
+N = int(input())
 T = list(map(int, input().split()))
-m = int(input())
-sm = sum(T)
-for _ in range(m):
+M = int(input())
+
+total = sum(T)
+for _ in range(M):
     p, x = map(int, input().split())
     p -= 1
-    print(sm - T[p] + x)
+    print(total - T[p] + x)
