@@ -1,31 +1,35 @@
-def cost(a, b, c, p, q, r):
+from collections import defaultdict
+
+def calc(a, b, c, p, q, r):
     return abs(p - a) + abs(q - b) + max(0, r - c)
 
 
-n = int(input())
-xyz = [tuple(map(int, input().split())) for _ in range(n)]
+N = int(input())
+xyz = [tuple(map(int, input().split())) for _ in range(N)]
 
-m = 1 << n
+g = defaultdict(list)
+for i in range(N):
+    for j in range(N):
+        if i == j:
+            continue
+        a, b, c = xyz[i]
+        p, q, r = xyz[j]
+        cost = calc(a, b, c, p, q, r)
+        g[i].append((cost, j))
+
+
 INF = float('inf')
-dp = [[INF] * n for _ in range(m)]
+dp = [[INF] * (1 << N) for _ in range(N)]
+for nc, nv in g[0]:
+    dp[nv][1 << nv] = nc
 
-sx, sy, sc = xyz[0]
-for nv, (p, q, r) in enumerate(xyz[1:], 1):
-    dp[1 << nv][nv] = cost(sx, sy, sc, p, q, r)
-
-for now in range(m):
-    for v in range(n):
+for now in range(1 << N):
+    for v in range(N):
         if not now >> v & 1:
             continue
-
-        a, b, c = xyz[v]
-        for nv in range(n):
-            if n == nv or now >> nv & 1:
+        for nc, nv in g[v]:
+            if now >> nv & 1:
                 continue
-
-            p, q, r = xyz[nv]
             nxt = now | 1 << nv
-            dp[nxt][nv] = min(dp[nxt][nv], \
-                              dp[now][v] + cost(a, b, c, p, q, r))
-
-print(dp[-1][0])
+            dp[nv][nxt] = min(dp[nv][nxt], dp[v][now] + nc)
+print(dp[0][-1])
