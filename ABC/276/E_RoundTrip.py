@@ -2,7 +2,10 @@ from collections import deque
 
 DXY = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
-def bfs(que):
+def bfs(ny, nx):
+    dist[ny][nx] = 1
+    que = deque([])
+    que.append((ny, nx))
     while que:
         y, x = que.popleft()
         for dy, dx in DXY:
@@ -33,10 +36,7 @@ for dy, dx in DXY:
         continue
     dist = [[-1] * W for _ in range(H)]
     dist[sy][sx] = 0
-    dist[ny][nx] = 1
-    que = deque([])
-    que.append((ny, nx))
-    bfs(que)
+    bfs(ny, nx)
 
     around = set()
     for dy, dx in DXY:
@@ -45,7 +45,7 @@ for dy, dx in DXY:
             continue
         if dist[ny][nx] != -1:
             around.add(dist[ny][nx])
-        if len(around) >= 2:
-            print("Yes")
-            exit()
+    if len(around) >= 2:
+        print("Yes")
+        exit()
 print("No")
