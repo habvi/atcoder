@@ -1,21 +1,15 @@
-n = int(input())
-n2 = 2 * n
-s = list(input())
-q = int(input())
-
-def mask(x):
-    if flg:
-        return (x + n) % n2
+N = int(input())
+S = list(input())
+Q = int(input())
+swap = 0
+N2 = 2 * N
+for _ in range(Q):
+    T, A, B = map(int, input().split())
+    if T == 1:
+        A, B = A - 1, B - 1
+        if swap:
+            A, B = (A + N) % N2, (B + N) % N2
+        S[A], S[B] = S[B], S[A]
     else:
-        return x
-
-flg = 0
-for _ in range(q):
-    t, a, b = map(int, input().split())
-    a, b = a - 1, b - 1
-    if t == 1:
-        s[mask(a)], s[mask(b)] = s[mask(b)], s[mask(a)]
-    else:
-        flg = 1 - flg
-
-print("".join(s[n:] + s[:n]) if flg else "".join(s))
+        swap = 1 - swap
+print(''.join(S[N:] + S[:N]) if swap else ''.join(S))
