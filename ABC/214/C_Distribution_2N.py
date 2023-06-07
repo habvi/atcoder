@@ -3,5 +3,7 @@ S = list(map(int, input().split()))
 T = list(map(int, input().split()))
 
 for i in range(2 * N):
-    T[(i + 1) % N] = min(T[(i + 1) % N], T[i % N] + S[i % N])
-print(*T)
+    now = i % N
+    nxt = (i + 1) % N
+    T[nxt] = min(T[nxt], T[now] + S[now])
+print(T)
