@@ -2,20 +2,23 @@ from collections import deque
 
 DXY = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
-def bfs(ay, ax, by, bx):
+def bfs(y1, x1, y2, x2):
     dist = [[[[-1] * N for _ in range(N)] for _ in range(N)] for _ in range(N)]
-    dist[ay][ax][by][bx] = 0
+    dist[y1][x1][y2][x2] = 0
     que = deque([])
-    que.append((ay, ax, by, bx))
+    que.append((y1, x1, y2, x2))
     while que:
         y1, x1, y2, x2 = que.popleft()
         for dy, dx in DXY:
-            ny1, nx1 = y1 + dy, x1 + dx
-            if not (0 <= ny1 < N and 0 <= nx1 < N) or S[ny1][nx1] == '#':
-                ny1, nx1 = y1, x1
-            ny2, nx2 = y2 + dy, x2 + dx
-            if not (0 <= ny2 < N and 0 <= nx2 < N) or S[ny2][nx2] == '#':
-                ny2, nx2 = y2, x2
+            def calc_next(y, x):
+                ny, nx = y + dy, x + dx
+                if not (0 <= ny < N and 0 <= nx < N) or S[ny][nx] == '#':
+                    return y, x
+                else:
+                    return ny, nx
+
+            ny1, nx1 = calc_next(y1, x1)
+            ny2, nx2 = calc_next(y2, x2)
             if dist[ny1][nx1][ny2][nx2] != -1:
                 continue
 
