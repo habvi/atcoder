@@ -1,25 +1,22 @@
-import statistics
-
-def sigma(n):
-    return n*(n + 1) // 2
+def calc(S):
+    to_right = []
+    one, total = 0, 0
+    for i, s in enumerate(S):
+        if s == '1':
+            one += 1
+        else:
+            total += one
+        to_right.append(total)
+    return to_right
 
 
 N = int(input())
 S = input()
 
-one_idx = [i for i, s in enumerate(S) if s == '1']
-median = int(statistics.median(one_idx))
-left, right = 0, 0
-ans = 0
-for i, s in enumerate(S):
-    if s == '0':
-        continue
-    if i < median:
-        left += 1
-    elif median < i:
-        right += 1
-    ans += abs(i - median)
-if S[median] == '0':
-    left -= 1
+to_left = calc(S[::-1])[::-1]
+to_right = calc(S)
 
-print(ans - sigma(left) - sigma(right))
+ans = float('inf')
+for i in range(N):
+    ans = min(ans, to_left[i] + to_right[i])
+print(ans)
